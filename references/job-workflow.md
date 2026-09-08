@@ -27,6 +27,13 @@
       "clip": true
     }
   ],
+  "visibilityChanges": [
+    {
+      "id": 303,
+      "visible": false,
+      "reason": "当前商品没有这个配料槽位，隐藏整组标签"
+    }
+  ],
   "outputs": {
     "preview": { "enabled": true, "maxWidth": 1600, "quality": 9 },
     "final": null
@@ -48,6 +55,22 @@
   "clip": true
 }
 ```
+
+`visibilityChanges` 用唯一的 `id`、完整 `path` 或唯一 `name` 选择图层或组，并显式设置 `visible: true/false`。配料槽位不适用时应隐藏包含文字、底框、圆点和引导线的完整父组；不要向文字层写空字符串。准备和提交后的重开验证都会检查显隐状态。
+
+用户明确允许当前任务临时兼容时，可在普通 `sourcePsdPath` 任务中记录授权与边界：
+
+```json
+{
+  "temporaryCompatibility": {
+    "userInstruction": "全部允许，遇到问题临时调整，完成后保持原规则",
+    "reason": "当前正式详情与主图母版槽位不同，需要只在工作副本中适配",
+    "scope": "working-copy-only"
+  }
+}
+```
+
+`temporaryCompatibility` 只允许用于一次性工作副本，不能与登记母版的 `templateId` 同时使用，也不能修改母版、定义或 skill 文件。
 
 场景卡使用 `sceneCards`；每项可包含 `textTarget`/`text`、`baseTarget`/`imagePath` 和 `oldImageTarget`。新图验证通过后才删除旧图。
 

@@ -107,6 +107,8 @@ try {
     organizeUsedAssets = $job.organizeUsedAssets
     overwriteExistingOutputs = $job.overwriteExistingOutputs
     textReplacements = @($job.textReplacements)
+    visibilityChanges = @($job.visibilityChanges)
+    temporaryCompatibility = $job.temporaryCompatibility
     protectedTextTargets = @($job.protectedTextTargets)
     imageTransfers = @($job.imageTransfers)
     catalog = $job.catalog

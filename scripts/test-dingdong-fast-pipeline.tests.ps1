@@ -140,6 +140,41 @@ try {
     @($generatedTexts | Where-Object { $_.Contains("`r") }).Count -gt 0) 'automatic main mapping writes Photoshop CR line breaks and no LF line breaks'
 
   $dummyDetailPsd = Join-Path $tempRoot 'detail.psd'; [IO.File]::WriteAllBytes($dummyDetailPsd, [byte[]](1,2,3))
+  $temporaryTaskPath = Join-Path $tempRoot 'temporary-main-task.json'
+  $temporaryTask = [pscustomobject][ordered]@{
+    jobVersion = 1
+    workflow = 'dingdong-main'
+    sourcePsdPath = $dummyDetailPsd
+    targetPsdPath = (Join-Path $tempRoot 'temporary-main.psd')
+    textReplacements = @()
+    imageTransfers = @()
+    visibilityChanges = @(
+      [pscustomobject][ordered]@{ id = 1417; visible = $false; reason = '隐藏当前商品不使用的完整标签组' }
+    )
+    temporaryCompatibility = [pscustomobject][ordered]@{
+      userInstruction = '允许制作，必要时仅作临时调整'
+      reason = '当前详情页与登记母版的商品槽位数量不同'
+      scope = 'working-copy-only'
+    }
+  }
+  Write-Utf8Json -Path $temporaryTaskPath -Value $temporaryTask | Out-Null
+  $resolvedTemporaryTask = Resolve-PsdJob -Task $temporaryTask -TaskPath $temporaryTaskPath -SkillRoot $skillRoot -RunPath (Join-Path $tempRoot 'temporary-main-run.json')
+  Assert-True (@($resolvedTemporaryTask.visibilityChanges).Count -eq 1 -and
+    [int]$resolvedTemporaryTask.visibilityChanges[0].id -eq 1417 -and
+    [bool]$resolvedTemporaryTask.visibilityChanges[0].visible -eq $false -and
+    [string]$resolvedTemporaryTask.temporaryCompatibility.scope -ceq 'working-copy-only') 'temporary compatibility preserves exact whole-group visibility changes in a task-local working copy'
+
+  $registeredTemporaryTask = $temporaryTask | ConvertTo-Json -Depth 20 | ConvertFrom-Json
+  $registeredTemporaryTask.PSObject.Properties.Remove('sourcePsdPath')
+  $registeredTemporaryTask | Add-Member -NotePropertyName source -NotePropertyValue ([pscustomobject]@{ templateId = 'dingdong-haoshiguang-main-7board' })
+  $registeredTemporaryFailed = $false
+  try {
+    Resolve-PsdJob -Task $registeredTemporaryTask -TaskPath $temporaryTaskPath -SkillRoot $skillRoot -RunPath (Join-Path $tempRoot 'registered-temporary-run.json') | Out-Null
+  } catch {
+    $registeredTemporaryFailed = $_.Exception.Message -like '*temporaryCompatibility must use sourcePsdPath*'
+  }
+  Assert-True $registeredTemporaryFailed 'temporary compatibility cannot mutate a registered template directly'
+
   $mainJobPath = Join-Path $tempRoot 'main-job.json'
   & (Join-Path $PSScriptRoot 'new-dingdong-main-job.ps1') -DetailPsdPath $dummyDetailPsd -MappingPath $mappingPath -TargetPsdPath (Join-Path $tempRoot 'main.psd') -OutputPath $mainJobPath -DetailWorkDir $tempRoot | Out-Null
   $mainJob = Read-Utf8Json $mainJobPath

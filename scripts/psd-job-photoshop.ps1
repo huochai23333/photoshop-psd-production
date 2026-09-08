@@ -138,7 +138,7 @@ var doc = opened.doc;
 if (!doc.saved) throw new Error("Working document has unsaved changes before the job starts.");
 app.activeDocument = doc;
 
-var textResults = [], protectedResults = [], imageResults = [], warnings = [], openedSources = [];
+var textResults = [], visibilityResults = [], protectedResults = [], imageResults = [], warnings = [], openedSources = [];
 var protectedTargets = job.protectedTextTargets || [];
 for (var p = 0; p < protectedTargets.length; p++) {
   var protectedInfo = findUnique(doc, protectedTargets[p], "Protected text target " + p);
@@ -146,6 +146,18 @@ for (var p = 0; p < protectedTargets.length; p++) {
   protectedResults.push('{"index":' + p + ',"id":' + protectedInfo.layer.id + ',"path":' + q(protectedInfo.path) +
     ',"text":' + q(protectedInfo.layer.textItem.contents) + ',"fontSize":' + textSize(protectedInfo.layer) +
     ',"visible":' + (protectedInfo.layer.visible ? 'true' : 'false') + '}');
+}
+var visibilityChanges = job.visibilityChanges || [];
+for (var v = 0; v < visibilityChanges.length; v++) {
+  // 临时兼容任务会隐藏完整标签组；这里记录前后状态，供提交后重开复验。
+  var visibilityItem = visibilityChanges[v];
+  var visibilityInfo = findUnique(doc, visibilityItem, "Visibility change " + v);
+  var visibleBefore = Boolean(visibilityInfo.layer.visible);
+  visibilityInfo.layer.visible = Boolean(visibilityItem.visible);
+  var visibleAfter = Boolean(visibilityInfo.layer.visible);
+  if (visibleAfter !== Boolean(visibilityItem.visible)) throw new Error("Visibility change " + v + " was not applied exactly.");
+  visibilityResults.push('{"index":' + v + ',"id":' + visibilityInfo.layer.id + ',"path":' + q(visibilityInfo.path) +
+    ',"before":' + (visibleBefore ? 'true' : 'false') + ',"after":' + (visibleAfter ? 'true' : 'false') + '}');
 }
 var replacements = job.textReplacements || [];
 for (var i = 0; i < replacements.length; i++) {
@@ -234,8 +246,9 @@ for (var w = 0; w < warnings.length; w++) warningJson.push(q(warnings[w]));
 var result = '{"ok":true,"saved":true,"workingPsdPath":' + q(workingPath) +
   ',"previewPath":' + q(previewPath) +
   ',"textChangedCount":' + textResults.length +
+  ',"visibilityChangedCount":' + visibilityResults.length +
   ',"imageChangedCount":' + imageResults.length +
-  ',"texts":[' + textResults.join(',') + '],"protectedTexts":[' + protectedResults.join(',') + '],"images":[' + imageResults.join(',') + ']' +
+  ',"texts":[' + textResults.join(',') + '],"visibilityChanges":[' + visibilityResults.join(',') + '],"protectedTexts":[' + protectedResults.join(',') + '],"images":[' + imageResults.join(',') + ']' +
   ',"warnings":[' + warningJson.join(',') + '],"errors":[]}';
 writeUtf8(resultPath, result);
 result;
@@ -291,6 +304,7 @@ function Test-PsdJobSavedTargets {
   $verifyJob = [pscustomobject]@{
     documentPath = [IO.Path]::GetFullPath($DocumentPath)
     textResults = @($Job.preparedResult.texts | Where-Object { $null -ne $_ })
+    visibilityResults = @($Job.preparedResult.visibilityChanges | Where-Object { $null -ne $_ })
     protectedTextResults = @($Job.preparedResult.protectedTexts | Where-Object { $null -ne $_ })
     imageResults = @($Job.preparedResult.images | Where-Object { $null -ne $_ })
     catalogItems = @($Job.preparedResult.catalogItems | Where-Object { $null -ne $_ })
@@ -330,6 +344,11 @@ if(!doc.saved)throw new Error("Verification PSD has unsaved changes");
 try {
   var texts=job.textResults||[];
   for(var i=0;i<texts.length;i++){var layer=findUnique(doc,{id:texts[i].id});if(layer.kind!=LayerKind.TEXT||layer.textItem.contents!==String(texts[i].after))errors.push("text "+i);}
+  var visibility=job.visibilityResults||[];
+  for(var v=0;v<visibility.length;v++){
+    var visibilityLayer=findUnique(doc,{id:visibility[v].id});
+    if(Boolean(visibilityLayer.visible)!==Boolean(visibility[v].after))errors.push("visibility "+v);
+  }
   var protectedTexts=job.protectedTextResults||[];
   for(var p=0;p<protectedTexts.length;p++){
     var locked=findUnique(doc,{id:protectedTexts[p].id,path:protectedTexts[p].path});

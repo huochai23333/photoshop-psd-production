@@ -389,6 +389,8 @@ function Resolve-PsdJob {
   }
 
   $textReplacements = @(Get-OptionalArray $Task 'textReplacements')
+  $visibilityChanges = @(Get-OptionalArray $Task 'visibilityChanges')
+  $temporaryCompatibility = if (Test-ObjectProperty $Task 'temporaryCompatibility') { $Task.temporaryCompatibility } else { $null }
   $protectedTextTargets = @(Get-OptionalArray $Task 'protectedTextTargets')
   $protectedOverrides = @(Get-OptionalArray $Task 'protectedOverrides')
   if ($protectedOverrides.Count -gt 0) {
@@ -396,6 +398,35 @@ function Resolve-PsdJob {
   }
   $imageTransfers = @(Get-OptionalArray $Task 'imageTransfers')
   $sceneCards = @(Get-OptionalArray $Task 'sceneCards')
+  foreach ($change in $visibilityChanges) {
+    # 显隐修改必须精确指向一个图层或图层组，避免因模糊名称误隐藏其他内容。
+    $selectorCount = 0
+    foreach ($field in @('id', 'path', 'name')) {
+      if ((Test-ObjectProperty $change $field) -and
+          $null -ne $change.$field -and
+          -not [string]::IsNullOrWhiteSpace([string]$change.$field)) {
+        $selectorCount++
+      }
+    }
+    if ($selectorCount -eq 0) { throw 'visibilityChanges[] requires an exact id, full path, or unique name.' }
+    if (-not (Test-ObjectProperty $change 'visible') -or $change.visible -isnot [bool]) {
+      throw 'visibilityChanges[].visible must be a JSON boolean.'
+    }
+  }
+  if ($null -ne $temporaryCompatibility) {
+    # 临时兼容只能绑定当前任务的工作副本，不能借此修改登记模板或扩大授权范围。
+    if ((-not (Test-ObjectProperty $temporaryCompatibility 'userInstruction')) -or
+        [string]::IsNullOrWhiteSpace([string]$temporaryCompatibility.userInstruction)) {
+      throw 'temporaryCompatibility.userInstruction is required.'
+    }
+    if ((-not (Test-ObjectProperty $temporaryCompatibility 'scope')) -or
+        [string]$temporaryCompatibility.scope -cne 'working-copy-only') {
+      throw 'temporaryCompatibility.scope must be working-copy-only.'
+    }
+    if (-not [string]::IsNullOrWhiteSpace([string]$sourceTemplateId)) {
+      throw 'temporaryCompatibility must use sourcePsdPath instead of a registered templateId.'
+    }
+  }
   foreach ($card in $sceneCards) {
     if ((Test-ObjectProperty $card 'text') -and $card.text) {
       $textSelector = if (Test-ObjectProperty $card 'textTarget') { $card.textTarget } else { $null }
@@ -739,6 +770,8 @@ function Resolve-PsdJob {
       quality = $previewQuality
     }
     textReplacements = @($textReplacements)
+    visibilityChanges = @($visibilityChanges)
+    temporaryCompatibility = $temporaryCompatibility
     protectedTextTargets = @($protectedTextTargets)
     imageTransfers = @($normalizedImages)
     catalog = $catalog
