@@ -1,0 +1,106 @@
+{
+  "definitionVersion": 1,
+  "templateKey": "dingdong-haoshiguang-main-7board",
+  "source": {
+    "name": "主图-叮咚好食光.psd",
+    "path": "D:/谷鱼视觉/小梅园/模板/好时光2026-7-20新样板/主图-叮咚好食光.psd",
+    "widthPx": 3478,
+    "heightPx": 1689,
+    "resolution": 72,
+    "layerCount": 191,
+    "artboardCount": 8,
+    "documentSavedAtScan": true,
+    "fileSizeBytes": 56435208,
+    "fileLastWriteTime": "2026-07-21T16:15:29.2428237+08:00",
+    "sha256": "08057688AC568DE52556C53BA5F2DAF44C35F74ABCA977E0049E898CA299CEF6",
+    "scanCreatedAt": "2026-07-21T16:17:21.5482573+08:00"
+  },
+  "fullIndex": {
+    "skillRelativePath": "assets/templates/indexes/dingdong-haoshiguang-main-7board.index.json",
+    "indexVersion": 1,
+    "documentCount": 1,
+    "layerCount": 191,
+    "sourceSha256": "08057688AC568DE52556C53BA5F2DAF44C35F74ABCA977E0049E898CA299CEF6"
+  },
+  "artboards": [
+    { "name": "0", "id": 3, "role": "reserved-blank", "rect": [0, 889, 800, 1689], "export": false },
+    { "name": "1", "id": 9, "role": "cover-selling-point", "rect": [0, 0, 800, 800], "export": true },
+    { "name": "2", "id": 120, "role": "ingredient-combination", "rect": [911, 0, 1711, 800], "export": true },
+    { "name": "3", "id": 1644, "role": "preparation-steps", "rect": [1789, 0, 2589, 800], "export": true },
+    { "name": "4", "id": 152, "role": "primary-ingredient-feature", "rect": [2667, 0, 3467, 800], "export": true },
+    { "name": "5", "id": 181, "role": "secondary-ingredient-feature", "rect": [900, 889, 1700, 1689], "export": true },
+    { "name": "6", "id": 1694, "role": "sauce-feature", "rect": [1800, 889, 2600, 1689], "export": true },
+    { "name": "7", "id": 1582, "role": "serving-scenes", "rect": [2678, 889, 3478, 1689], "export": true }
+  ],
+  "textTargets": [
+    { "label": "screen-1-headline", "artboard": "1", "targetId": 35, "mode": "compose-detail-approved", "sourceDetailIds": [1853, 3911], "sourceRule": "detail-block-1-first-line + detail-block-7-second-line" },
+    { "label": "screen-3-steps", "artboard": "3", "targetId": 3100, "mode": "verbatim-step-block", "sourceRule": "all-approved-verbatim-steps-in-numeric-order" },
+    { "label": "screen-3-step-count-title", "artboard": "3", "targetId": 1588, "mode": "sync-step-count", "sourceDetailIds": [1118], "sourceRule": "when the registered contiguous currentSteps count differs from the template, change only the unique N-step digit to 2, 3, or 4" },
+    { "label": "screen-4-headline", "artboard": "4", "targetId": 139, "mode": "sync-detail-approved", "sourceDetailIds": [2689, 2687] },
+    { "label": "screen-5-headline", "artboard": "5", "targetId": 168, "mode": "sync-detail-approved", "sourceDetailIds": [3886] },
+    { "label": "screen-6-headline", "artboard": "6", "targetId": 1681, "mode": "sync-detail-approved", "sourceDetailIds": [3899] },
+    { "label": "screen-6-callout-1", "artboard": "6", "targetId": 2408, "mode": "sync-detail-approved", "sourceDetailIds": [4811] },
+    { "label": "screen-6-callout-2", "artboard": "6", "targetId": 2414, "mode": "sync-detail-approved", "sourceDetailIds": [4819] },
+    { "label": "screen-7-headline", "artboard": "7", "targetId": 1569, "mode": "sync-detail-current", "sourceDetailIds": [2711, 2712] },
+    { "label": "screen-7-scene-1", "artboard": "7", "targetId": 1557, "mode": "sync-detail-approved", "sourceDetailIds": [4076], "sceneNumber": 1 },
+    { "label": "screen-7-scene-2", "artboard": "7", "targetId": 1562, "mode": "sync-detail-current", "sourceDetailIds": [4081], "sceneNumber": 2 },
+    { "label": "screen-7-scene-3", "artboard": "7", "targetId": 1567, "mode": "sync-detail-current", "sourceDetailIds": [4086], "sceneNumber": 3 }
+  ],
+  "unchangedTextTargets": [
+    { "label": "screen-2-headline", "artboard": "2", "targetId": 309, "reason": "keep-template-text" },
+    { "label": "screen-2-serving-line", "artboard": "2", "targetId": 1527, "reason": "keep-template-text" },
+    { "label": "screen-2-ingredient-slot-1", "artboard": "2", "targetId": 1410, "slotOrder": 1, "reason": "keep-template-text" },
+    { "label": "screen-2-ingredient-slot-2", "artboard": "2", "targetId": 1540, "slotOrder": 2, "reason": "keep-template-text" },
+    { "label": "screen-2-ingredient-slot-3", "artboard": "2", "targetId": 1415, "slotOrder": 3, "reason": "keep-template-text" },
+    { "label": "screen-2-ingredient-slot-4", "artboard": "2", "targetId": 2393, "slotOrder": 4, "reason": "keep-template-text" },
+    { "label": "screen-2-ingredient-slot-5", "artboard": "2", "targetId": 1405, "slotOrder": 5, "reason": "keep-template-text" },
+    { "label": "screen-3-step-count-title", "artboard": "3", "targetId": 1588, "reason": "read-only-except-exact-step-count-sync", "allowStepCountSync": true, "baselineStepCount": 3, "allowedStepCounts": [1, 2, 4] }
+  ],
+  "imageTargets": [
+    { "label": "screen-1-image", "artboard": "1", "targetId": 2972, "targetName": "图片剪贴蒙版位置", "sourceDetailBlock": "1", "sourceRule": "detail-block-1-primary-image", "fit": "cover", "clip": true },
+    { "label": "screen-2-image", "artboard": "2", "targetId": 1400, "targetName": "图片剪贴蒙版位置", "sourceDetailBlock": "2", "sourceRule": "detail-block-2-primary-image", "fit": "cover", "clip": true },
+    { "label": "screen-3-image", "artboard": "3", "targetId": 1586, "targetName": "图片剪贴蒙版位置", "sourceDetailBlock": "3", "sourceRule": "final-numbered-step-image-only", "fit": "cover", "clip": true },
+    { "label": "screen-4-image", "artboard": "4", "targetId": 2973, "targetName": "图片剪贴蒙版位置", "sourceDetailBlock": "4", "sourceRule": "detail-block-4-primary-image", "fit": "cover", "clip": true },
+    { "label": "screen-5-image", "artboard": "5", "targetId": 2971, "targetName": "图片剪贴蒙版位置", "sourceDetailBlock": "5", "sourceRule": "detail-block-5-primary-image", "fit": "cover", "clip": true },
+    { "label": "screen-6-image", "artboard": "6", "targetId": 2969, "targetName": "图片剪贴蒙版位置", "sourceDetailBlock": "6", "sourceRule": "detail-block-6-primary-image-only-exclude-detail-overlays", "fit": "cover", "clip": true },
+    { "label": "screen-7-image", "artboard": "7", "targetId": 2970, "targetName": "图片剪贴蒙版位置", "sourceDetailBlock": "8", "sourceRule": "detail-block-8-primary-scene-image", "fit": "cover", "clip": true }
+  ],
+  "preparedSlotCounts": {
+    "ingredientLabels": 5,
+    "stepTextBoxes": 1,
+    "stepTextMode": "single-combined",
+    "sauceCallouts": 2,
+    "sceneCards": 3
+  },
+  "defaultProductionSequence": {
+    "workingCopyRequired": true,
+    "detailCopyApprovedBeforeMain": true,
+    "detailImagesPlacedBeforeMain": true,
+    "mainTextAndImagesAppliedTogether": true,
+    "assistantImagePlacement": true,
+    "userPlacesImagesAfterTextUpdate": false,
+    "writeOnlyChangedText": true,
+    "requiredPlaceholderName": "图片剪贴蒙版位置",
+    "requiredPlaceholderCount": 7,
+    "builderGeneratesImageTransfers": false,
+    "organizeDetailUsedImagesAfterCommit": true,
+    "organizeOnlyAfterFinalPsdValidation": true,
+    "detailImageWorkDirRule": "task-detailWorkDir-or-detail-psd-parent",
+    "usedFolderName": "已使用"
+  },
+  "exportPlan": {
+    "artboardNames": ["1", "2", "3", "4", "5", "6", "7"],
+    "excludeArtboardNames": ["0"],
+    "order": "numeric-artboard-name",
+    "widthPx": 800,
+    "heightPx": 800,
+    "defaultFormat": "jpg",
+    "overwriteExistingOutputRequiresTaskAuthorization": true
+  },
+  "cachePolicy": {
+    "indexIsRefreshableCache": true,
+    "hashChangeIsWarningWhenTargetsRemainUnique": true,
+    "refreshWhenLayerIdOrPathMissing": true,
+    "refreshWhenArtboardOrSlotStructureChanges": true
+  }
+}

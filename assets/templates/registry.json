@@ -1,0 +1,56 @@
+{
+  "registryVersion": 1,
+  "kind": "psd-template-registry",
+  "templates": [
+    {
+      "templateId": "dingdong-haoshiguang-detail-3step",
+      "displayName": "叮咚好食光详情页（三步版）",
+      "workflow": "dingdong-detail",
+      "usageScenario": "三步烹饪商品详情页",
+      "psdPath": "D:/谷鱼视觉/小梅园/模板/好时光2026-7-20新样板/叮咚好食光-3步.psd",
+      "definitionPath": "definitions/dingdong-haoshiguang-detail-3step.json",
+      "indexPath": "indexes/dingdong-haoshiguang-detail-3step.index.json",
+      "taskTemplatePath": "tasks/dingdong-haoshiguang-detail-3step.task.json"
+    },
+    {
+      "templateId": "dingdong-haoshiguang-detail-2step",
+      "displayName": "叮咚好食光详情页（两步版）",
+      "workflow": "dingdong-detail",
+      "usageScenario": "两步烹饪商品详情页",
+      "psdPath": "D:/谷鱼视觉/小梅园/模板/好时光2026-7-20新样板/叮咚好食光-2步.psd",
+      "definitionPath": "definitions/dingdong-haoshiguang-detail-2step.json",
+      "indexPath": "indexes/dingdong-haoshiguang-detail-2step.index.json",
+      "taskTemplatePath": "tasks/dingdong-haoshiguang-detail-2step.task.json"
+    },
+    {
+      "templateId": "dingdong-haoshiguang-main-7board",
+      "displayName": "叮咚好食光主图（七图版）",
+      "workflow": "dingdong-main",
+      "usageScenario": "同步详情页文案与七张图片，制作画板 1 至 7",
+      "psdPath": "D:/谷鱼视觉/小梅园/模板/好时光2026-7-20新样板/主图-叮咚好食光.psd",
+      "definitionPath": "definitions/dingdong-haoshiguang-main-7board.json",
+      "indexPath": "indexes/dingdong-haoshiguang-main-7board.index.json",
+      "taskTemplatePath": "tasks/dingdong-haoshiguang-main-7board.task.json"
+    },
+    {
+      "templateId": "dingdong-haoshiguang-detail-4step",
+      "displayName": "叮咚好食光详情页（四步版）",
+      "workflow": "dingdong-detail",
+      "usageScenario": "四步烹饪商品详情页",
+      "psdPath": "D:/谷鱼视觉/小梅园/模板/好时光2026-7-20新样板/叮咚好食光-4步.psd",
+      "definitionPath": "definitions/dingdong-haoshiguang-detail-4step.json",
+      "indexPath": "indexes/dingdong-haoshiguang-detail-4step.index.json",
+      "taskTemplatePath": "tasks/dingdong-haoshiguang-detail-4step.task.json"
+    },
+    {
+      "templateId": "dingdong-haoshiguang-detail-1step",
+      "displayName": "叮咚好食光详情页（一步版）",
+      "workflow": "dingdong-detail",
+      "usageScenario": "一步烹饪商品详情页",
+      "psdPath": "D:/谷鱼视觉/小梅园/模板/好时光2026-7-20新样板/叮咚好食光-1步.psd",
+      "definitionPath": "definitions/dingdong-haoshiguang-detail-1step.json",
+      "indexPath": "indexes/dingdong-haoshiguang-detail-1step.index.json",
+      "taskTemplatePath": "tasks/dingdong-haoshiguang-detail-1step.task.json"
+    }
+  ]
+}

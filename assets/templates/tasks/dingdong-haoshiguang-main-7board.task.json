@@ -1,0 +1,13 @@
+{
+  "jobVersion": 1,
+  "workflow": "dingdong-main",
+  "source": { "templateId": "dingdong-haoshiguang-main-7board" },
+  "targetPsdPath": "填写产品主图 PSD 完整路径",
+  "textReplacements": [],
+  "imageTransfers": [],
+  "outputs": {
+    "preview": { "enabled": true, "maxWidth": 1800, "quality": 10 },
+    "final": null
+  },
+  "organizeUsedAssets": false
+}

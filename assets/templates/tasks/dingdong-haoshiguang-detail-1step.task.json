@@ -1,0 +1,13 @@
+{
+  "jobVersion": 1,
+  "workflow": "dingdong-detail",
+  "source": { "templateId": "dingdong-haoshiguang-detail-1step" },
+  "targetPsdPath": "填写产品详情页 PSD 完整路径",
+  "textReplacements": [],
+  "imageTransfers": [],
+  "outputs": {
+    "preview": { "enabled": true, "maxWidth": 1500, "quality": 10 },
+    "final": null
+  },
+  "organizeUsedAssets": false
+}

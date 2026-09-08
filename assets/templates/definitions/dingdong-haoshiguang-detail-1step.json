@@ -1,0 +1,143 @@
+{
+  "definitionVersion": 1,
+  "templateKey": "dingdong-haoshiguang-detail-1step",
+  "source": {
+    "name": "叮咚好食光-1步.psd",
+    "path": "D:/谷鱼视觉/小梅园/模板/好时光2026-7-20新样板/叮咚好食光-1步.psd",
+    "widthPx": 750,
+    "heightPx": 10752,
+    "layerCount": 160,
+    "documentSavedAtScan": true,
+    "fileSizeBytes": 94533207,
+    "fileLastWriteTime": "2026-08-15T17:35:50.6589072+08:00",
+    "sha256": "126C1E109B066E5481294544A720CBE486E0F6D2571955FAFA04D9F6289BE14F",
+    "scanCreatedAt": "2026-08-15T17:37:14.6071383+08:00"
+  },
+  "fullIndex": {
+    "skillRelativePath": "assets/templates/indexes/dingdong-haoshiguang-detail-1step.index.json",
+    "indexVersion": 1,
+    "documentCount": 1,
+    "layerCount": 160,
+    "sourceSha256": "126C1E109B066E5481294544A720CBE486E0F6D2571955FAFA04D9F6289BE14F",
+    "normalization": "Fresh read-only scan of the prepared one-step master. All 160 layer records and text font-size signatures are preserved."
+  },
+  "selectors": {
+    "stepRoot": {
+      "id": 2552,
+      "path": "版3/组 64"
+    },
+    "stepGroupNameRegex": "^步骤([1-9][0-9]*)$",
+    "instructionTextRegex": "^\\s*{stepNumber}\\s*[、.]",
+    "stepOrder": "numeric-group-name",
+    "requireUniqueContiguousNumbers": true,
+    "excludeIsolatedNumeralText": true
+  },
+  "currentSteps": [
+    {
+      "number": 1,
+      "groupId": 1143,
+      "groupPath": "版3/组 64/步骤1",
+      "contentGroupId": 1828,
+      "instructionTextId": 5631,
+      "imagePlaceholderId": 1155,
+      "frameId": 2554
+    }
+  ],
+  "dependentCopy": [
+    {
+      "label": "step-count-title",
+      "id": 1118,
+      "path": "版3/开盒即烹 3步即烹 轻松到胃  ",
+      "rule": "synchronize every count-bearing phrase with the discovered step count"
+    }
+  ],
+  "styleAdaptedTextTargets": [
+    { "id": 1853, "path": "头版/组 72/蒜香浓厚 虾鲜爽弹 宅家轻松解锁海鲜硬菜" },
+    { "id": 10, "path": "头版/组 6/蒜蓉粉丝蒸虾仁 " },
+    { "id": 2689, "path": "组 66/版4/青虾手工去壳挑线" },
+    { "id": 2687, "path": "组 66/版4/虾肉紧实饱满 Q弹鲜甜 " },
+    { "id": 3886, "path": "组 66/版5/搭配龙口粉丝 细腻通透 蒸后爽滑柔韧 根根挂汁 " },
+    { "id": 3899, "path": "组 66/版6/秘制醇香金银蒜蓉酱 蒜香醇厚不冲鼻 浓而不腻 ", "requiredPrefix": "特调" },
+    { "id": 4811, "path": "组 66/版6/组 78/组 60/金蒜：油炸至金黄酥脆，满口焦香 " },
+    { "id": 4819, "path": "组 66/版6/组 78/组 60 拷贝/银蒜：保留生蒜原汁辛辣，提鲜去腥  " },
+    { "id": 3911, "path": "组 66/版7/汤汁澄黄油亮 虾仁裹着蒜酥 蒸出的汁水拌饭也超香！ " },
+    { "id": 4076, "path": "组 76/版8/组 54/组 59/加班回家轻松蒸 5分钟热乎上桌 ", "requiredText": "下班回家轻松煮\r煮好后热乎上桌\r" }
+  ],
+  "protectedTextTargets": [
+    { "id": 3939, "path": "版2/“一顿吃完刚刚好” " },
+    { "id": 20, "path": "版2/新鲜食材巧搭配 免洗免切免调味 " },
+    { "id": 237, "path": "版2/组 56/· HAO SHI GUANG ·" },
+    { "id": 3870, "path": "版2/组 70/组 62/组 61 拷贝/蒜蓉酱110g" },
+    { "id": 3651, "path": "版2/组 70/组 62/组 61/大娃娃菜60g" },
+    { "id": 4786, "path": "版2/组 70/组 62/组 61 拷贝 2/粉丝120g" },
+    { "id": 3656, "path": "版2/组 70/组 62/组 61/青虾仁110g" },
+    { "id": 1054, "path": "版2/组 70/组 62/组 61/葱花10g+小米辣5g " },
+    { "id": 69, "path": "组 76/尾版/忙碌生活的饮食解决方案  轻松拥有便捷与美味 " }
+  ],
+  "protectedPathPrefixes": ["版2"],
+  "legacyCopyTerms": ["虾仁", "青虾", "蒜蓉", "金蒜", "银蒜", "娃娃菜", "粉丝", "海鲜", "蒸"],
+  "copyValidation": {
+    "copyVersion": 2,
+    "maxSegmentCharacterDelta": 1,
+    "board6SideDishTargetIds": [4811, 4819]
+  },
+  "copyGrammarBaselinePath": "assets/templates/grammar/dingdong-haoshiguang-detail-common.json",
+  "textAllowedBounds": [
+    { "id": 1853, "label": "头版主卖点", "bounds": [0, 0, 750, 1230] },
+    { "id": 10, "label": "产品名称", "bounds": [0, 0, 750, 1230] },
+    { "id": 5631, "label": "步骤1", "bounds": [0, 2075, 750, 3556] },
+    { "id": 1118, "label": "步骤数量关联标题", "bounds": [0, 2075, 750, 3556] },
+    { "id": 2689, "label": "版4主料信息", "bounds": [0, 3556, 750, 4677] },
+    { "id": 2687, "label": "版4口感信息", "bounds": [0, 3556, 750, 4677] },
+    { "id": 3886, "label": "版5配菜卖点", "bounds": [0, 4677, 750, 5800] },
+    { "id": 3899, "label": "版6酱料卖点", "bounds": [0, 5800, 750, 6697] },
+    { "id": 4811, "label": "版6说明1", "bounds": [0, 5800, 750, 6697] },
+    { "id": 4819, "label": "版6说明2", "bounds": [0, 5800, 750, 6697] },
+    { "id": 3911, "label": "版7卖点", "bounds": [0, 6697, 750, 8000] },
+    { "id": 4076, "label": "版8场景", "bounds": [0, 8000, 750, 9361] }
+  ],
+  "mainImageSourceSlots": [
+    { "screen": 1, "label": "板块1主图", "baseLayerId": 5442 },
+    { "screen": 2, "label": "板块2主图", "baseLayerId": 205 },
+    { "screen": 3, "label": "最后一个编号步骤图片", "selector": "last-step-image-placeholder" },
+    { "screen": 4, "label": "板块4主图", "baseLayerId": 2673 },
+    { "screen": 5, "label": "板块5主图", "baseLayerId": 3248 },
+    { "screen": 6, "label": "板块6主图", "baseLayerId": 3892, "excludeDetailOverlay": true },
+    { "screen": 7, "label": "板块8主场景图", "baseLayerId": 3933 }
+  ],
+  "confirmedImageBases": [
+    { "label": "cover-image-base", "id": 5442, "path": "头版/图片剪贴位置" },
+    { "label": "block-2-image-clip-base", "id": 205, "path": "版2/组 70/图片剪贴位置" },
+    { "label": "main-dish-image-area", "id": 4647, "path": "图片放置区域" }
+  ],
+  "defaultProductionSequence": {
+    "copyFirst": true,
+    "copyReferenceInputs": ["original clean PSD", "user-supplied product images"],
+    "assistantImagePlacement": false,
+    "userPlacesImagesAfterTextUpdate": true,
+    "postImageHashChangeRequiresFullRefresh": false
+  },
+  "stepExpansionPolicy": {
+    "fixedStepCount": false,
+    "sourcePreparedStepCount": 1,
+    "usePreparedStep4WhenPresent": true,
+    "stopWhenPreparedStepOrUniqueInsertionTargetIsMissing": true,
+    "neverDropMergeSqueezeOrReorder": true,
+    "requiredStructureFields": [
+      "source group to duplicate",
+      "new step group name",
+      "insertion order",
+      "position and spacing",
+      "downstream section or canvas reflow",
+      "image placement policy",
+      "export impact"
+    ]
+  },
+  "cachePolicy": {
+    "indexIsRefreshableCache": true,
+    "hashChangeIsWarningWhenTargetsRemainUnique": true,
+    "refreshWhenLayerIdOrPathMissing": true,
+    "refreshWhenStepStructureChanges": true,
+    "doNotUseOrganizerForScanning": true
+  }
+}

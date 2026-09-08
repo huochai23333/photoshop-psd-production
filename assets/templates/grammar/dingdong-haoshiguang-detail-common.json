@@ -1,0 +1,164 @@
+{
+  "grammarVersion": 1,
+  "description": "Template-owned source grammar. Agents may annotate proposed copy, but cannot redefine the original grammar.",
+  "targets": [
+    {
+      "id": 10,
+      "lines": [
+        { "sourceSegments": [
+          { "text": "蒜蓉粉丝", "pos": "noun", "role": "product", "separatorAfter": "" },
+          { "text": "蒸", "pos": "verb", "role": "method", "separatorAfter": "" },
+          { "text": "虾仁", "pos": "noun", "role": "ingredient", "separatorAfter": "" }
+        ] }
+      ]
+    },
+    {
+      "id": 1853,
+      "lines": [
+        { "sourceSegments": [
+          { "text": "蒜香", "pos": "noun", "role": "aroma", "separatorAfter": "" },
+          { "text": "浓厚", "pos": "adjective", "role": "degree", "separatorAfter": " " },
+          { "text": "虾鲜", "pos": "noun", "role": "ingredient-flavour", "separatorAfter": "" },
+          { "text": "爽弹", "pos": "adjective", "role": "texture", "separatorAfter": "" }
+        ] },
+        { "sourceSegments": [
+          { "text": "宅家", "pos": "noun", "role": "scene", "separatorAfter": "" },
+          { "text": "轻松", "pos": "adverb", "role": "state", "separatorAfter": "" },
+          { "text": "解锁", "pos": "verb", "role": "action", "separatorAfter": "" },
+          { "text": "海鲜", "pos": "noun", "role": "product-qualifier", "separatorAfter": "" },
+          { "text": "硬菜", "pos": "noun", "role": "product", "separatorAfter": "" }
+        ] }
+      ]
+    },
+    {
+      "id": 1118,
+      "lines": [
+        { "sourceSegments": [
+          { "text": "开盒", "pos": "verb", "role": "action", "separatorAfter": "" },
+          { "text": "即烹", "pos": "fixed", "role": "state", "separatorAfter": "" }
+        ] },
+        { "sourceSegments": [
+          { "text": "3", "pos": "number", "role": "step-count", "separatorAfter": "" },
+          { "text": "步", "pos": "unit", "role": "step-unit", "separatorAfter": "" },
+          { "text": "即烹", "pos": "fixed", "role": "state", "separatorAfter": " " },
+          { "text": "轻松", "pos": "adverb", "role": "state", "separatorAfter": "" },
+          { "text": "到胃", "pos": "verb", "role": "result", "separatorAfter": "" }
+        ] }
+      ]
+    },
+    {
+      "id": 2689,
+      "lines": [
+        { "sourceSegments": [
+          { "text": "青虾", "pos": "noun", "role": "ingredient", "separatorAfter": "" },
+          { "text": "手工", "pos": "adverb", "role": "method", "separatorAfter": "" },
+          { "text": "去壳", "pos": "verb", "role": "action", "separatorAfter": "" },
+          { "text": "挑线", "pos": "verb", "role": "result", "separatorAfter": "" }
+        ] }
+      ]
+    },
+    {
+      "id": 2687,
+      "lines": [
+        { "sourceSegments": [
+          { "text": "虾肉", "pos": "noun", "role": "ingredient", "separatorAfter": "" },
+          { "text": "紧实饱满", "pos": "fixed", "role": "product-quality", "separatorAfter": " " },
+          { "text": "Q弹鲜甜", "pos": "fixed", "role": "flavour-texture", "separatorAfter": "" }
+        ] }
+      ]
+    },
+    {
+      "id": 3886,
+      "lines": [
+        { "sourceSegments": [
+          { "text": "搭配", "pos": "verb", "role": "action", "separatorAfter": "" },
+          { "text": "龙口粉丝", "pos": "noun", "role": "product", "separatorAfter": " " },
+          { "text": "细腻", "pos": "adjective", "role": "product-quality", "separatorAfter": "" },
+          { "text": "通透", "pos": "adjective", "role": "product-quality", "separatorAfter": "" }
+        ] },
+        { "sourceSegments": [
+          { "text": "蒸后", "pos": "fixed", "role": "cooking-stage", "separatorAfter": "" },
+          { "text": "爽滑", "pos": "adjective", "role": "texture", "separatorAfter": "" },
+          { "text": "柔韧", "pos": "adjective", "role": "texture", "separatorAfter": " " },
+          { "text": "根根", "pos": "noun", "role": "product-unit", "separatorAfter": "" },
+          { "text": "挂汁", "pos": "verb", "role": "result", "separatorAfter": "" }
+        ] }
+      ]
+    },
+    {
+      "id": 3899,
+      "lines": [
+        { "sourceSegments": [
+          { "text": "秘制", "pos": "fixed", "role": "method", "separatorAfter": "" },
+          { "text": "醇香", "pos": "adjective", "role": "aroma", "separatorAfter": "" },
+          { "text": "金银蒜蓉酱", "pos": "noun", "role": "sauce", "separatorAfter": "" }
+        ] },
+        { "sourceSegments": [
+          { "text": "蒜香", "pos": "noun", "role": "base-flavour", "separatorAfter": "" },
+          { "text": "醇厚", "pos": "adjective", "role": "quality", "separatorAfter": "" },
+          { "text": "不冲鼻", "pos": "fixed", "role": "balance", "separatorAfter": " " },
+          { "text": "浓而不腻", "pos": "fixed", "role": "balance", "separatorAfter": "" }
+        ] }
+      ]
+    },
+    {
+      "id": 4811,
+      "lines": [
+        { "sourceSegments": [
+          { "text": "金蒜", "pos": "noun", "role": "ingredient", "separatorAfter": "：" },
+          { "text": "油炸至", "pos": "verb", "role": "method", "separatorAfter": "" },
+          { "text": "金黄酥脆", "pos": "fixed", "role": "result", "separatorAfter": "，" },
+          { "text": "满口焦香", "pos": "fixed", "role": "flavour", "separatorAfter": "" }
+        ] }
+      ]
+    },
+    {
+      "id": 4819,
+      "lines": [
+        { "sourceSegments": [
+          { "text": "银蒜", "pos": "noun", "role": "ingredient", "separatorAfter": "：" },
+          { "text": "保留", "pos": "verb", "role": "action", "separatorAfter": "" },
+          { "text": "生蒜原汁", "pos": "noun", "role": "flavour-base", "separatorAfter": "" },
+          { "text": "辛辣", "pos": "adjective", "role": "flavour", "separatorAfter": "，" },
+          { "text": "提鲜", "pos": "verb", "role": "benefit", "separatorAfter": "" },
+          { "text": "去腥", "pos": "verb", "role": "benefit", "separatorAfter": "" }
+        ] }
+      ]
+    },
+    {
+      "id": 3911,
+      "lines": [
+        { "sourceSegments": [
+          { "text": "汤汁", "pos": "noun", "role": "base", "separatorAfter": "" },
+          { "text": "澄黄", "pos": "adjective", "role": "product-quality", "separatorAfter": "" },
+          { "text": "油亮", "pos": "adjective", "role": "product-quality", "separatorAfter": " " },
+          { "text": "虾仁", "pos": "noun", "role": "ingredient", "separatorAfter": "" },
+          { "text": "裹着", "pos": "verb", "role": "action", "separatorAfter": "" },
+          { "text": "蒜酥", "pos": "noun", "role": "coating", "separatorAfter": "" }
+        ] },
+        { "sourceSegments": [
+          { "text": "蒸出的", "pos": "fixed", "role": "cooking-result", "separatorAfter": "" },
+          { "text": "汁水", "pos": "noun", "role": "product", "separatorAfter": "" },
+          { "text": "拌饭", "pos": "verb", "role": "action", "separatorAfter": "" },
+          { "text": "也", "pos": "adverb", "role": "degree", "separatorAfter": "" },
+          { "text": "超香", "pos": "adjective", "role": "aroma", "separatorAfter": "！" }
+        ] }
+      ]
+    },
+    {
+      "id": 4076,
+      "lines": [
+        { "sourceSegments": [
+          { "text": "加班回家", "pos": "fixed", "role": "scene", "separatorAfter": "" },
+          { "text": "轻松", "pos": "adverb", "role": "state", "separatorAfter": "" },
+          { "text": "蒸", "pos": "verb", "role": "action", "separatorAfter": "" }
+        ] },
+        { "sourceSegments": [
+          { "text": "5分钟", "pos": "fixed", "role": "cooking-condition", "separatorAfter": "" },
+          { "text": "热乎", "pos": "adjective", "role": "state", "separatorAfter": "" },
+          { "text": "上桌", "pos": "verb", "role": "result", "separatorAfter": "" }
+        ] }
+      ]
+    }
+  ]
+}

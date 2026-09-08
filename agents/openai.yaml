@@ -1,0 +1,4 @@
+interface:
+  display_name: "Photoshop PSD 生产"
+  short_description: "轻量套版、验证、提交并导出 Photoshop PSD/PSB"
+  default_prompt: "Use $photoshop-psd-production to prepare a working copy, inspect the visual preview, then commit and verify the requested Photoshop result."
