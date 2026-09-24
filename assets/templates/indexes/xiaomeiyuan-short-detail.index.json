@@ -1,0 +1,1770 @@
+{
+  "indexVersion": 1,
+  "createdAt": "2026-09-08T17:07:55.4414982+08:00",
+  "documents": [
+    {
+      "index": 0,
+      "name": "详情页_短版_菜品.psd",
+      "path": "D:\\谷鱼视觉\\小梅园\\模板\\详情页_短版_菜品.psd",
+      "width": 750,
+      "height": 4375,
+      "widthPx": 750,
+      "heightPx": 4375,
+      "resolution": 72,
+      "saved": true,
+      "layerCount": 63,
+      "layers": [
+        {
+          "id": 94,
+          "parentId": null,
+          "siblingIndex": 0,
+          "depth": 0,
+          "name": "组 3",
+          "path": "组 3",
+          "parentPath": "",
+          "idPath": "94",
+          "typename": "LayerSet",
+          "kind": "undefined",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            -30,
+            -135,
+            752,
+            1075
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 6,
+          "parentId": 94,
+          "siblingIndex": 0,
+          "depth": 1,
+          "name": "Old duck soup with ham & bamboo shoot tips",
+          "path": "组 3/Old duck soup with ham & bamboo shoot tips",
+          "parentPath": "组 3",
+          "idPath": "94/6",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            157,
+            159,
+            593,
+            179
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 43,
+              "size": 43
+            }
+          ],
+          "text": "Old duck soup with ham & bamboo shoot tips"
+        },
+        {
+          "id": 67,
+          "parentId": 94,
+          "siblingIndex": 1,
+          "depth": 1,
+          "name": "鸭腿入汤，火腿提鲜，笋尖清香",
+          "path": "组 3/鸭腿入汤，火腿提鲜，笋尖清香",
+          "parentPath": "组 3",
+          "idPath": "94/67",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            149,
+            201,
+            604,
+            234
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 15,
+              "size": 18
+            }
+          ],
+          "text": "鸭腿入汤，火腿提鲜，笋尖清香"
+        },
+        {
+          "id": 8,
+          "parentId": 94,
+          "siblingIndex": 2,
+          "depth": 1,
+          "name": "矩形 1",
+          "path": "组 3/矩形 1",
+          "parentPath": "组 3",
+          "idPath": "94/8",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.SOLIDFILL",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            55,
+            190,
+            693,
+            247
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 5,
+          "parentId": 94,
+          "siblingIndex": 3,
+          "depth": 1,
+          "name": "火腿扁尖老鸭汤",
+          "path": "组 3/火腿扁尖老鸭汤",
+          "parentPath": "组 3",
+          "idPath": "94/5",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            182,
+            85,
+            567,
+            139
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 8,
+              "size": 43
+            }
+          ],
+          "text": "火腿扁尖老鸭汤"
+        },
+        {
+          "id": 89,
+          "parentId": 94,
+          "siblingIndex": 4,
+          "depth": 1,
+          "name": "组 2 拷贝 2",
+          "path": "组 3/组 2 拷贝 2",
+          "parentPath": "组 3",
+          "idPath": "94/89",
+          "typename": "LayerSet",
+          "kind": "undefined",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            536,
+            276,
+            672,
+            356
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 88,
+          "parentId": 89,
+          "siblingIndex": 0,
+          "depth": 2,
+          "name": "文火慢炖 1.5小时",
+          "path": "组 3/组 2 拷贝 2/文火慢炖 1.5小时",
+          "parentPath": "组 3/组 2 拷贝 2",
+          "idPath": "94/89/88",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            541,
+            276,
+            666,
+            342
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 11,
+              "size": 400
+            },
+            {
+              "from": 0,
+              "to": 11,
+              "size": 400
+            }
+          ],
+          "text": "文火慢炖\r1.5小时"
+        },
+        {
+          "id": 87,
+          "parentId": 89,
+          "siblingIndex": 1,
+          "depth": 2,
+          "name": "Slow-simmered 1.5h",
+          "path": "组 3/组 2 拷贝 2/Slow-simmered 1.5h",
+          "parentPath": "组 3/组 2 拷贝 2",
+          "idPath": "94/89/87",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            536,
+            344,
+            672,
+            356
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 19,
+              "size": 172.235214233398
+            }
+          ],
+          "text": "Slow-simmered 1.5h"
+        },
+        {
+          "id": 85,
+          "parentId": 94,
+          "siblingIndex": 5,
+          "depth": 1,
+          "name": "组 2 拷贝",
+          "path": "组 3/组 2 拷贝",
+          "parentPath": "组 3",
+          "idPath": "94/85",
+          "typename": "LayerSet",
+          "kind": "undefined",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            283,
+            276,
+            474,
+            331
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 84,
+          "parentId": 85,
+          "siblingIndex": 0,
+          "depth": 2,
+          "name": "优选安吉笋尖",
+          "path": "组 3/组 2 拷贝/优选安吉笋尖",
+          "parentPath": "组 3/组 2 拷贝",
+          "idPath": "94/85/84",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            283,
+            276,
+            474,
+            308
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 7,
+              "size": 400
+            }
+          ],
+          "text": "优选安吉笋尖"
+        },
+        {
+          "id": 83,
+          "parentId": 85,
+          "siblingIndex": 1,
+          "depth": 2,
+          "name": "Anji shoot tips",
+          "path": "组 3/组 2 拷贝/Anji shoot tips",
+          "parentPath": "组 3/组 2 拷贝",
+          "idPath": "94/85/83",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            330,
+            317,
+            426,
+            331
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 16,
+              "size": 172.235214233398
+            }
+          ],
+          "text": "Anji shoot tips"
+        },
+        {
+          "id": 72,
+          "parentId": 94,
+          "siblingIndex": 6,
+          "depth": 1,
+          "name": "组 2",
+          "path": "组 3/组 2",
+          "parentPath": "组 3",
+          "idPath": "94/72",
+          "typename": "LayerSet",
+          "kind": "undefined",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            92,
+            276,
+            217,
+            358
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 17,
+          "parentId": 72,
+          "siblingIndex": 0,
+          "depth": 2,
+          "name": "鸭腿含量 ≥24%",
+          "path": "组 3/组 2/鸭腿含量 ≥24%",
+          "parentPath": "组 3/组 2",
+          "idPath": "94/72/17",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            92,
+            276,
+            217,
+            340
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 10,
+              "size": 400
+            },
+            {
+              "from": 0,
+              "to": 10,
+              "size": 400
+            }
+          ],
+          "text": "鸭腿含量\r≥24%"
+        },
+        {
+          "id": 71,
+          "parentId": 72,
+          "siblingIndex": 1,
+          "depth": 2,
+          "name": "Duck leg ≥24%",
+          "path": "组 3/组 2/Duck leg ≥24%",
+          "parentPath": "组 3/组 2",
+          "idPath": "94/72/71",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            106,
+            344,
+            202,
+            358
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 14,
+              "size": 172.235214233398
+            }
+          ],
+          "text": "Duck leg ≥24%"
+        },
+        {
+          "id": 9,
+          "parentId": 94,
+          "siblingIndex": 7,
+          "depth": 1,
+          "name": "矩形 2",
+          "path": "组 3/矩形 2",
+          "parentPath": "组 3",
+          "idPath": "94/9",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.SOLIDFILL",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            -30,
+            -135,
+            752,
+            1075
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 4,
+          "parentId": 94,
+          "siblingIndex": 8,
+          "depth": 1,
+          "name": "107604",
+          "path": "组 3/107604",
+          "parentPath": "组 3",
+          "idPath": "94/4",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.SMARTOBJECT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            0,
+            307,
+            750,
+            1057
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 96,
+          "parentId": null,
+          "siblingIndex": 1,
+          "depth": 0,
+          "name": "标题2",
+          "path": "标题2",
+          "parentPath": "",
+          "idPath": "96",
+          "typename": "LayerSet",
+          "kind": "undefined",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            79,
+            1118,
+            651,
+            1348
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 18,
+          "parentId": 96,
+          "siblingIndex": 0,
+          "depth": 1,
+          "name": "图层 1",
+          "path": "标题2/图层 1",
+          "parentPath": "标题2",
+          "idPath": "96/18",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.NORMAL",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            111,
+            1124,
+            230,
+            1257
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 24,
+          "parentId": 96,
+          "siblingIndex": 1,
+          "depth": 1,
+          "name": "矩形 4",
+          "path": "标题2/矩形 4",
+          "parentPath": "标题2",
+          "idPath": "96/24",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.SOLIDFILL",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            268,
+            1118,
+            271,
+            1272
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 23,
+          "parentId": 96,
+          "siblingIndex": 2,
+          "depth": 1,
+          "name": "清脆鲜香",
+          "path": "标题2/清脆鲜香",
+          "parentPath": "标题2",
+          "idPath": "96/23",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            294,
+            1199,
+            531,
+            1258
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 5,
+              "size": 400
+            }
+          ],
+          "text": "清脆鲜香"
+        },
+        {
+          "id": 22,
+          "parentId": 96,
+          "siblingIndex": 3,
+          "depth": 1,
+          "name": "优选安吉笋尖",
+          "path": "标题2/优选安吉笋尖",
+          "parentPath": "标题2",
+          "idPath": "96/22",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            292,
+            1126,
+            651,
+            1186
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 7,
+              "size": 400
+            }
+          ],
+          "text": "优选安吉笋尖"
+        },
+        {
+          "id": 21,
+          "parentId": 96,
+          "siblingIndex": 4,
+          "depth": 1,
+          "name": "好原料",
+          "path": "标题2/好原料",
+          "parentPath": "标题2",
+          "idPath": "96/21",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            79,
+            1157,
+            262,
+            1217
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 4,
+              "size": 400
+            }
+          ],
+          "text": "好原料"
+        },
+        {
+          "id": 27,
+          "parentId": 96,
+          "siblingIndex": 5,
+          "depth": 1,
+          "name": "Selected Anji bamboo shoot tips",
+          "path": "标题2/Selected Anji bamboo shoot tips",
+          "parentPath": "标题2",
+          "idPath": "96/27",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            131,
+            1294,
+            619,
+            1348
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 52,
+              "size": 24
+            }
+          ],
+          "text": "Selected Anji bamboo shoot tips, crisp and fragrant"
+        },
+        {
+          "id": 100,
+          "parentId": null,
+          "siblingIndex": 2,
+          "depth": 0,
+          "name": "组 5",
+          "path": "组 5",
+          "parentPath": "",
+          "idPath": "100",
+          "typename": "LayerSet",
+          "kind": "undefined",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            43,
+            1507,
+            707,
+            2171
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 91,
+          "parentId": 100,
+          "siblingIndex": 0,
+          "depth": 1,
+          "name": "107608",
+          "path": "组 5/107608",
+          "parentPath": "组 5",
+          "idPath": "100/91",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.SMARTOBJECT",
+          "visible": true,
+          "grouped": true,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            43,
+            1507,
+            707,
+            2171
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 31,
+          "parentId": 100,
+          "siblingIndex": 1,
+          "depth": 1,
+          "name": "矩形 5 拷贝",
+          "path": "组 5/矩形 5 拷贝",
+          "parentPath": "组 5",
+          "idPath": "100/31",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.SOLIDFILL",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            48,
+            1784,
+            702,
+            1976
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 30,
+          "parentId": 100,
+          "siblingIndex": 2,
+          "depth": 1,
+          "name": "鸭汤鲜美醇香",
+          "path": "组 5/鸭汤鲜美醇香",
+          "parentPath": "组 5",
+          "idPath": "100/30",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            289,
+            2011,
+            462,
+            2040
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 7,
+              "size": 30
+            }
+          ],
+          "text": "鸭汤鲜美醇香"
+        },
+        {
+          "id": 102,
+          "parentId": null,
+          "siblingIndex": 3,
+          "depth": 0,
+          "name": "组 6",
+          "path": "组 6",
+          "parentPath": "",
+          "idPath": "102",
+          "typename": "LayerSet",
+          "kind": "undefined",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            0,
+            2134,
+            750,
+            3172
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 90,
+          "parentId": 102,
+          "siblingIndex": 0,
+          "depth": 1,
+          "name": "107615",
+          "path": "组 6/107615",
+          "parentPath": "组 6",
+          "idPath": "102/90",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.SMARTOBJECT",
+          "visible": true,
+          "grouped": true,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            0,
+            2422,
+            750,
+            3172
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 34,
+          "parentId": 102,
+          "siblingIndex": 1,
+          "depth": 1,
+          "name": "矩形 6",
+          "path": "组 6/矩形 6",
+          "parentPath": "组 6",
+          "idPath": "102/34",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.SOLIDFILL",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            48,
+            2454,
+            702,
+            3164
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 32,
+          "parentId": 102,
+          "siblingIndex": 2,
+          "depth": 1,
+          "name": "山东鸭腿，肉质紧实",
+          "path": "组 6/山东鸭腿，肉质紧实",
+          "parentPath": "组 6",
+          "idPath": "102/32",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            112,
+            2134,
+            645,
+            2194
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 10,
+              "size": 400
+            }
+          ],
+          "text": "山东鸭腿，肉质紧实"
+        },
+        {
+          "id": 35,
+          "parentId": 102,
+          "siblingIndex": 3,
+          "depth": 1,
+          "name": "足量鸭腿搭配火腿与扁尖",
+          "path": "组 6/足量鸭腿搭配火腿与扁尖",
+          "parentPath": "组 6",
+          "idPath": "102/35",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            185,
+            2289,
+            568,
+            2426
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 50,
+              "size": 30
+            },
+            {
+              "from": 0,
+              "to": 50,
+              "size": 30
+            },
+            {
+              "from": 0,
+              "to": 50,
+              "size": 30
+            },
+            {
+              "from": 0,
+              "to": 50,
+              "size": 30
+            }
+          ],
+          "text": "足量鸭肉搭配火腿\r肉香笋香在汤里慢慢交融\r文火慢炖1.5小时，汤鲜味醇\r咸鲜清润不腻口，家常更有味"
+        },
+        {
+          "id": 33,
+          "parentId": 102,
+          "siblingIndex": 4,
+          "depth": 1,
+          "name": "Shandong duck leg, firm and meaty",
+          "path": "组 6/Shandong duck leg, firm and meaty",
+          "parentPath": "组 6",
+          "idPath": "102/33",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            170,
+            2209,
+            581,
+            2233
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 34,
+              "size": 24
+            }
+          ],
+          "text": "Shandong duck leg, firm and meaty"
+        },
+        {
+          "id": 98,
+          "parentId": null,
+          "siblingIndex": 4,
+          "depth": 0,
+          "name": "组 4",
+          "path": "组 4",
+          "parentPath": "",
+          "idPath": "98",
+          "typename": "LayerSet",
+          "kind": "undefined",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            0,
+            1257,
+            750,
+            1820
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 106,
+          "parentId": 98,
+          "siblingIndex": 0,
+          "depth": 1,
+          "name": "b534cdd9-04c7-4719-baf7-a2199dd1b021",
+          "path": "组 4/b534cdd9-04c7-4719-baf7-a2199dd1b021",
+          "parentPath": "组 4",
+          "idPath": "98/106",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.SMARTOBJECT",
+          "visible": true,
+          "grouped": true,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            0,
+            1257,
+            750,
+            1820
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 28,
+          "parentId": 98,
+          "siblingIndex": 1,
+          "depth": 1,
+          "name": "矩形 5",
+          "path": "组 4/矩形 5",
+          "parentPath": "组 4",
+          "idPath": "98/28",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.SOLIDFILL",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            48,
+            1397,
+            702,
+            1588
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 29,
+          "parentId": 98,
+          "siblingIndex": 2,
+          "depth": 1,
+          "name": "优选安吉笋尖，清脆入汤",
+          "path": "组 4/优选安吉笋尖，清脆入汤",
+          "parentPath": "组 4",
+          "idPath": "98/29",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            213,
+            1624,
+            535,
+            1724
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 43,
+              "size": 30
+            },
+            {
+              "from": 0,
+              "to": 43,
+              "size": 30
+            },
+            {
+              "from": 0,
+              "to": 43,
+              "size": 30
+            },
+            {
+              "from": 0,
+              "to": 43,
+              "size": 30
+            }
+          ],
+          "text": "甄选安吉笋尖，清脆入汤\r笋香清雅，鲜嫩爽口\r与火腿老鸭文火同炖\r提鲜解腻，汤味更清爽"
+        },
+        {
+          "id": 104,
+          "parentId": null,
+          "siblingIndex": 5,
+          "depth": 0,
+          "name": "组 7",
+          "path": "组 7",
+          "parentPath": "",
+          "idPath": "104",
+          "typename": "LayerSet",
+          "kind": "undefined",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            61,
+            3267,
+            689,
+            4338
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 63,
+          "parentId": 104,
+          "siblingIndex": 0,
+          "depth": 1,
+          "name": "* Pictures for reference only, please refer to actual product",
+          "path": "组 7/* Pictures for reference only, please refer to actual product",
+          "parentPath": "组 7",
+          "idPath": "104/63",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            62,
+            4320,
+            562,
+            4338
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 62,
+              "size": 18
+            }
+          ],
+          "text": "* Pictures for reference only, please refer to actual product"
+        },
+        {
+          "id": 62,
+          "parentId": 104,
+          "siblingIndex": 1,
+          "depth": 1,
+          "name": "*图片仅供参考，请以实际产品为准",
+          "path": "组 7/*图片仅供参考，请以实际产品为准",
+          "parentPath": "组 7",
+          "idPath": "104/62",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            62,
+            4285,
+            426,
+            4309
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 17,
+              "size": 24
+            }
+          ],
+          "text": "*图片仅供参考，请以实际产品为准"
+        },
+        {
+          "id": 52,
+          "parentId": 104,
+          "siblingIndex": 2,
+          "depth": 1,
+          "name": "组 1 拷贝 2",
+          "path": "组 7/组 1 拷贝 2",
+          "parentPath": "组 7",
+          "idPath": "104/52",
+          "typename": "LayerSet",
+          "kind": "undefined",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            61,
+            3986,
+            688,
+            4086
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 65,
+          "parentId": 52,
+          "siblingIndex": 0,
+          "depth": 2,
+          "name": "矩形 7",
+          "path": "组 7/组 1 拷贝 2/矩形 7",
+          "parentPath": "组 7/组 1 拷贝 2",
+          "idPath": "104/52/65",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.SOLIDFILL",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            61,
+            4083,
+            688,
+            4086
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 54,
+          "parentId": 52,
+          "siblingIndex": 1,
+          "depth": 2,
+          "name": "Net weight: 800g",
+          "path": "组 7/组 1 拷贝 2/Net weight: 800g",
+          "parentPath": "组 7/组 1 拷贝 2",
+          "idPath": "104/52/54",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            481,
+            4026,
+            627,
+            4044
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 17,
+              "size": 18
+            }
+          ],
+          "text": "Net weight: 800g"
+        },
+        {
+          "id": 53,
+          "parentId": 52,
+          "siblingIndex": 2,
+          "depth": 2,
+          "name": "净含量：800克",
+          "path": "组 7/组 1 拷贝 2/净含量：800克",
+          "parentPath": "组 7/组 1 拷贝 2",
+          "idPath": "104/52/53",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            480,
+            3986,
+            679,
+            4015
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 9,
+              "size": 30
+            }
+          ],
+          "text": "净含量：800克"
+        },
+        {
+          "id": 50,
+          "parentId": 52,
+          "siblingIndex": 3,
+          "depth": 2,
+          "name": "Shelf life: 12 months",
+          "path": "组 7/组 1 拷贝 2/Shelf life: 12 months",
+          "parentPath": "组 7/组 1 拷贝 2",
+          "idPath": "104/52/50",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            62,
+            4026,
+            238,
+            4041
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 22,
+              "size": 18
+            }
+          ],
+          "text": "Shelf life: 12 months"
+        },
+        {
+          "id": 49,
+          "parentId": 52,
+          "siblingIndex": 4,
+          "depth": 2,
+          "name": "保质期：12个月",
+          "path": "组 7/组 1 拷贝 2/保质期：12个月",
+          "parentPath": "组 7/组 1 拷贝 2",
+          "idPath": "104/52/49",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            62,
+            3986,
+            269,
+            4015
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 9,
+              "size": 30
+            }
+          ],
+          "text": "保质期：12个月"
+        },
+        {
+          "id": 59,
+          "parentId": 104,
+          "siblingIndex": 3,
+          "depth": 1,
+          "name": "组 1 拷贝 3",
+          "path": "组 7/组 1 拷贝 3",
+          "parentPath": "组 7",
+          "idPath": "104/59",
+          "typename": "LayerSet",
+          "kind": "undefined",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            61,
+            4147,
+            688,
+            4246
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 66,
+          "parentId": 59,
+          "siblingIndex": 0,
+          "depth": 2,
+          "name": "矩形 7",
+          "path": "组 7/组 1 拷贝 3/矩形 7",
+          "parentPath": "组 7/组 1 拷贝 3",
+          "idPath": "104/59/66",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.SOLIDFILL",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            61,
+            4243,
+            688,
+            4246
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 57,
+          "parentId": 59,
+          "siblingIndex": 1,
+          "depth": 2,
+          "name": "Storage: keep frozen at -18°C or below",
+          "path": "组 7/组 1 拷贝 3/Storage: keep frozen at -18°C or below",
+          "parentPath": "组 7/组 1 拷贝 3",
+          "idPath": "104/59/57",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            62,
+            4187,
+            395,
+            4205
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 39,
+              "size": 18
+            }
+          ],
+          "text": "Storage: keep frozen at -18°C or below"
+        },
+        {
+          "id": 56,
+          "parentId": 59,
+          "siblingIndex": 2,
+          "depth": 2,
+          "name": "储存方式:-18°C及以下冷冻保存",
+          "path": "组 7/组 1 拷贝 3/储存方式:-18°C及以下冷冻保存",
+          "parentPath": "组 7/组 1 拷贝 3",
+          "idPath": "104/59/56",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            62,
+            4147,
+            475,
+            4176
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 18,
+              "size": 30
+            }
+          ],
+          "text": "储存方式:-18°C及以下冷冻保存"
+        },
+        {
+          "id": 47,
+          "parentId": 104,
+          "siblingIndex": 4,
+          "depth": 1,
+          "name": "组 1 拷贝",
+          "path": "组 7/组 1 拷贝",
+          "parentPath": "组 7",
+          "idPath": "104/47",
+          "typename": "LayerSet",
+          "kind": "undefined",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            62,
+            3823,
+            689,
+            3922
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 64,
+          "parentId": 47,
+          "siblingIndex": 0,
+          "depth": 2,
+          "name": "矩形 7",
+          "path": "组 7/组 1 拷贝/矩形 7",
+          "parentPath": "组 7/组 1 拷贝",
+          "idPath": "104/47/64",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.SOLIDFILL",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            62,
+            3919,
+            689,
+            3922
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 45,
+          "parentId": 47,
+          "siblingIndex": 1,
+          "depth": 2,
+          "name": "Origin: please refer to the packaging",
+          "path": "组 7/组 1 拷贝/Origin: please refer to the packaging",
+          "parentPath": "组 7/组 1 拷贝",
+          "idPath": "104/47/45",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            62,
+            3863,
+            378,
+            3881
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 38,
+              "size": 18
+            }
+          ],
+          "text": "Origin: please refer to the packaging"
+        },
+        {
+          "id": 44,
+          "parentId": 47,
+          "siblingIndex": 2,
+          "depth": 2,
+          "name": "产地：见包装",
+          "path": "组 7/组 1 拷贝/产地：见包装",
+          "parentPath": "组 7/组 1 拷贝",
+          "idPath": "104/47/44",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            62,
+            3823,
+            238,
+            3852
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 7,
+              "size": 30
+            }
+          ],
+          "text": "产地：见包装"
+        },
+        {
+          "id": 41,
+          "parentId": 104,
+          "siblingIndex": 5,
+          "depth": 1,
+          "name": "组 1",
+          "path": "组 7/组 1",
+          "parentPath": "组 7",
+          "idPath": "104/41",
+          "typename": "LayerSet",
+          "kind": "undefined",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            62,
+            3676,
+            689,
+            3776
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 40,
+          "parentId": 41,
+          "siblingIndex": 0,
+          "depth": 2,
+          "name": "矩形 7",
+          "path": "组 7/组 1/矩形 7",
+          "parentPath": "组 7/组 1",
+          "idPath": "104/41/40",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.SOLIDFILL",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            62,
+            3773,
+            689,
+            3776
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 39,
+          "parentId": 41,
+          "siblingIndex": 1,
+          "depth": 2,
+          "name": "Product name: old duck soup with ham & bamboo shoot tips",
+          "path": "组 7/组 1/Product name: old duck soup with ham & bamboo shoot tips",
+          "parentPath": "组 7/组 1",
+          "idPath": "104/41/39",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            63,
+            3716,
+            583,
+            3734
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 57,
+              "size": 18
+            }
+          ],
+          "text": "Product name: old duck soup with ham & bamboo shoot tips"
+        },
+        {
+          "id": 38,
+          "parentId": 41,
+          "siblingIndex": 2,
+          "depth": 2,
+          "name": "产品名称：火腿扁尖老鸭汤",
+          "path": "组 7/组 1/产品名称：火腿扁尖老鸭汤",
+          "parentPath": "组 7/组 1",
+          "idPath": "104/41/38",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            62,
+            3676,
+            414,
+            3705
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 13,
+              "size": 30
+            }
+          ],
+          "text": "产品名称：火腿扁尖老鸭汤"
+        },
+        {
+          "id": 180,
+          "parentId": 104,
+          "siblingIndex": 6,
+          "depth": 1,
+          "name": "图层 3",
+          "path": "组 7/图层 3",
+          "parentPath": "组 7",
+          "idPath": "104/180",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.NORMAL",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            233,
+            3412,
+            517,
+            3612
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 179,
+          "parentId": 104,
+          "siblingIndex": 7,
+          "depth": 1,
+          "name": "图层 2",
+          "path": "组 7/图层 2",
+          "parentPath": "组 7",
+          "idPath": "104/179",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.NORMAL",
+          "visible": false,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            233,
+            3405,
+            518,
+            3628
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        },
+        {
+          "id": 37,
+          "parentId": 104,
+          "siblingIndex": 8,
+          "depth": 1,
+          "name": "产品信息",
+          "path": "组 7/产品信息",
+          "parentPath": "组 7",
+          "idPath": "104/37",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            257,
+            3267,
+            495,
+            3325
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 5,
+              "size": 400
+            }
+          ],
+          "text": "产品信息"
+        },
+        {
+          "id": 36,
+          "parentId": 104,
+          "siblingIndex": 9,
+          "depth": 1,
+          "name": "Old duck soup with ham and bamboo shoot tips",
+          "path": "组 7/Old duck soup with ham and bamboo shoot tips",
+          "parentPath": "组 7",
+          "idPath": "104/36",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.TEXT",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            262,
+            3342,
+            489,
+            3362
+          ],
+          "fontSizeSignature": [
+            {
+              "from": 0,
+              "to": 20,
+              "size": 24
+            }
+          ],
+          "text": "Product information"
+        },
+        {
+          "id": 19,
+          "parentId": null,
+          "siblingIndex": 6,
+          "depth": 0,
+          "name": "矩形 3",
+          "path": "矩形 3",
+          "parentPath": "",
+          "idPath": "19",
+          "typename": "ArtLayer",
+          "kind": "LayerKind.SOLIDFILL",
+          "visible": true,
+          "grouped": false,
+          "isArtboard": false,
+          "artboardRect": null,
+          "bounds": [
+            -199,
+            992,
+            999,
+            5048
+          ],
+          "fontSizeSignature": null,
+          "text": ""
+        }
+      ]
+    }
+  ],
+  "sourcePsd": {
+    "path": "D:\\谷鱼视觉\\小梅园\\模板\\详情页_短版_菜品.psd",
+    "sha256": "43232721937FEC9EF5820D5FAD9816BCAB37A9C8B23505832A3AFD21CBF521F6",
+    "lastWriteTimeUtc": "2026-07-04T10:19:59.4262582Z",
+    "lengthBytes": 40557288
+  }
+}

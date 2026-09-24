@@ -51,6 +51,14 @@
       "definitionPath": "definitions/dingdong-haoshiguang-detail-1step.json",
       "indexPath": "indexes/dingdong-haoshiguang-detail-1step.index.json",
       "taskTemplatePath": "tasks/dingdong-haoshiguang-detail-1step.task.json"
+    },
+    {
+      "templateId": "xiaomeiyuan-short-detail",
+      "displayName": "小梅园短版菜品详情页",
+      "workflow": "generic",
+      "usageScenario": "750像素宽的短版菜品详情页，保留老鸭汤示例内容便于替换",
+      "psdPath": "D:/谷鱼视觉/小梅园/模板/详情页_短版_菜品.psd",
+      "indexPath": "indexes/xiaomeiyuan-short-detail.index.json"
     }
   ]
 }

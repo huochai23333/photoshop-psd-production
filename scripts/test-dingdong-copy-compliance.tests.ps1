@@ -202,12 +202,13 @@ try {
   Assert-True ($dingdongReference.Contains('不再向用户索要第二次确认') -and
     $dingdongReference.Contains('SHA-256 是内部防篡改绑定') -and
     $grammarReference.Contains('不再请求用户确认哈希、任务或 PSD 写入')) 'copy confirmation directly authorizes detail-page templating'
+  # 聊天审稿使用两列表；确认后的修改仍须使旧审核稿与套版授权失效。
   Assert-True ($skillReference.Contains('不得基于旧候选自由润色、降低标准或事后补标签') -and
     $dingdongReference.Contains('确认阶段的重新生成不是自由润色') -and
     $dingdongReference.Contains('未点名行逐字符不变') -and
     $grammarReference.Contains('完整执行初稿的资料门槛、审核顺序、语法、分句、字数') -and
-    $grammarReference.Contains('任何后续修改都使上一版九列表、正式审核稿、`copy.json`、SHA-256、任务及套版授权失效')) 'confirmation-stage rewrites inherit every initial copy rule and invalidate stale approvals'
-  Assert-True ($skillReference.Contains('每个板块只显示一行') -and
+    $grammarReference.Contains('任何后续修改都使上一版两列表、正式审核稿、`copy.json`、SHA-256、任务及套版授权失效')) 'confirmation-stage rewrites inherit every initial copy rule and invalidate stale approvals'
+  Assert-True ($skillReference.Contains('每个可改板块一行') -and
     $dingdongReference.Contains('禁止把版4主料标题与口感说明、版6标题与两条说明等拆成独立审核行') -and
     $grammarReference.Contains('duplicate-board-copy-focus') -and
     $grammarReference.Contains('标题与下方说明不得使用同词或近义词重复描述同一外观、口感、风味或卖点')) 'copy review groups each board and rejects repeated title-description focus'
