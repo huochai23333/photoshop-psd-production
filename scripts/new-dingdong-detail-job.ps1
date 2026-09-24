@@ -37,6 +37,7 @@ $final = if ($FinalJpgPath) {
 $job = [ordered]@{
   jobVersion = 1
   workflow = 'dingdong-detail'
+  productionScope = 'dingdong-copy-only'
   source = [ordered]@{ templateId = $TemplateId }
   targetPsdPath = [IO.Path]::GetFullPath($TargetPsdPath)
   copyReview = [ordered]@{

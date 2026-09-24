@@ -17,6 +17,15 @@ if (Test-Path -LiteralPath $runFullPath) {
 
 $task = Read-Utf8Json $taskFullPath
 $skillRoot = Split-Path -Parent $PSScriptRoot
+$isCopyOnly = ((Test-ObjectProperty $task 'workflow') -and [string]$task.workflow -ceq 'dingdong-detail') -or
+  ((Test-ObjectProperty $task 'productionScope') -and [string]$task.productionScope -ceq 'dingdong-copy-only')
+if ($isCopyOnly) {
+  # 文案确认只授权文字写入；在复制或打开 PSD 前拦截误加的图片与显隐操作。
+  foreach ($field in @('imageTransfers', 'visibilityChanges', 'sceneCards')) {
+    $items = if (Test-ObjectProperty $task $field) { @($task.$field | Where-Object { $null -ne $_ }) } else { @() }
+    if ($items.Count -gt 0) { throw "Dingdong copy-only task cannot contain ${field}." }
+  }
+}
 if ((Test-ObjectProperty $task 'workflow') -and [string]$task.workflow -ceq 'dingdong-detail') {
   if (-not (Test-ObjectProperty $task 'copyReview') -or $null -eq $task.copyReview) {
     throw 'Dingdong detail task must contain copyReview.'
