@@ -135,7 +135,8 @@ function covers(cover, target, tolerance) {
 var job = parseJson(readUtf8(jobPath));
 var opened = getOpenDocument(job.workingPsdPath);
 var doc = opened.doc;
-if (!doc.saved) throw new Error("Working document has unsaved changes before the job starts.");
+// 部分 Photoshop 版本会把脚本刚从已校验磁盘文件打开的文档标记为未保存；仅拦截先前已打开且确有未保存修改的文档。
+if (!doc.saved && !opened.openedHere) throw new Error("Working document has unsaved changes before the job starts.");
 app.activeDocument = doc;
 
 var textResults = [], visibilityResults = [], protectedResults = [], imageResults = [], warnings = [], openedSources = [];

@@ -497,17 +497,12 @@ function Resolve-PsdJob {
   }
 
   $structureAdaptedTargetIds = @{}
-  $requiredPrefixByTargetId = @{}
   $requiredTextByTargetId = @{}
   if ($null -ne $templateDefinition) {
     if (Test-ObjectProperty $templateDefinition 'styleAdaptedTextTargets') {
       foreach ($target in @($templateDefinition.styleAdaptedTextTargets)) {
         if ((Test-ObjectProperty $target 'id') -and $null -ne $target.id) {
           $structureAdaptedTargetIds[[string]$target.id] = $true
-          if ((Test-ObjectProperty $target 'requiredPrefix') -and
-              -not [string]::IsNullOrWhiteSpace([string]$target.requiredPrefix)) {
-            $requiredPrefixByTargetId[[string]$target.id] = [string]$target.requiredPrefix
-          }
           if (Test-ObjectProperty $target 'requiredText') {
             $requiredTextByTargetId[[string]$target.id] = [string]$target.requiredText
           }
@@ -535,13 +530,7 @@ function Resolve-PsdJob {
     }
     $replacementMode = if (Test-ObjectProperty $replacement 'mode') { [string]$replacement.mode } else { '' }
     $generatedFrom = if (Test-ObjectProperty $replacement 'generatedFrom') { [string]$replacement.generatedFrom } else { '' }
-    if ($requiredPrefixByTargetId.ContainsKey($replacementId)) {
-      $requiredPrefix = [string]$requiredPrefixByTargetId[$replacementId]
-      $replacementText = if (Test-ObjectProperty $replacement 'text') { [string]$replacement.text } else { '' }
-      if (-not $replacementText.StartsWith($requiredPrefix, [StringComparison]::Ordinal)) {
-        throw ('required-copy-prefix: id {0} 的版6标题必须以“{1}”开头。' -f $replacementId, $requiredPrefix)
-      }
-    }
+    # 版6标题不再执行固定前缀拦截，按已确认文字写入。
     if ($requiredTextByTargetId.ContainsKey($replacementId)) {
       $requiredText = [string]$requiredTextByTargetId[$replacementId]
       $replacementText = if (Test-ObjectProperty $replacement 'text') { [string]$replacement.text } else { '' }

@@ -83,7 +83,7 @@
     { "id": 2689, "path": "组 66/版4/青虾手工去壳挑线" },
     { "id": 2687, "path": "组 66/版4/虾肉紧实饱满 Q弹鲜甜 " },
     { "id": 3886, "path": "组 66/版5/搭配龙口粉丝 细腻通透 蒸后爽滑柔韧 根根挂汁 " },
-    { "id": 3899, "path": "组 66/版6/秘制醇香金银蒜蓉酱 蒜香醇厚不冲鼻 浓而不腻 ", "requiredPrefix": "特调" },
+    { "id": 3899, "path": "组 66/版6/秘制醇香金银蒜蓉酱 蒜香醇厚不冲鼻 浓而不腻 " },
     { "id": 4811, "path": "组 66/版6/组 78/组 60/金蒜：油炸至金黄酥脆，满口焦香 " },
     { "id": 4819, "path": "组 66/版6/组 78/组 60 拷贝/银蒜：保留生蒜原汁辛辣，提鲜去腥  " },
     { "id": 3911, "path": "组 66/版7/汤汁澄黄油亮 虾仁裹着蒜酥 蒸出的汁水拌饭也超香！ " },
@@ -104,8 +104,7 @@
   "legacyCopyTerms": ["虾仁", "青虾", "蒜蓉", "金蒜", "银蒜", "娃娃菜", "粉丝", "海鲜", "蒸"],
   "copyValidation": {
     "copyVersion": 2,
-    "maxSegmentCharacterDelta": 1,
-    "board6SideDishTargetIds": [4811, 4819]
+    "maxSegmentCharacterDelta": 1
   },
   "copyGrammarBaselinePath": "assets/templates/grammar/dingdong-haoshiguang-detail-common.json",
   "textAllowedBounds": [

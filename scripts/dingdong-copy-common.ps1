@@ -317,12 +317,6 @@ function Test-DingdongCopyCompliance {
       (Test-ObjectProperty $definition.copyValidation 'maxSegmentCharacterDelta')) {
     $maxDelta = [int]$definition.copyValidation.maxSegmentCharacterDelta
   }
-  $board6SideDishTargetIds = @()
-  if ((Test-ObjectProperty $definition 'copyValidation') -and
-      (Test-ObjectProperty $definition.copyValidation 'board6SideDishTargetIds')) {
-    $board6SideDishTargetIds = @($definition.copyValidation.board6SideDishTargetIds | ForEach-Object { [string]$_ })
-  }
-
   $facts = @()
   if (Test-ObjectProperty $copy 'facts') { $facts = @($copy.facts) }
   $factById = @{}
@@ -345,12 +339,6 @@ function Test-DingdongCopyCompliance {
     if ((Test-ObjectProperty $fact 'kind') -and
         @('document', 'image', 'user') -cnotcontains [string]$fact.kind) {
       Add-DingdongCopyError $errors 'invalid-fact-kind' '' "Fact $id has invalid kind: $([string]$fact.kind)"
-    }
-    if ((Test-ObjectProperty $fact 'category') -and [string]$fact.category -ceq 'side-dish') {
-      $sideDishTerms = if (Test-ObjectProperty $fact 'terms') { @($fact.terms | ForEach-Object { [string]$_ }) } else { @() }
-      if ($sideDishTerms.Count -eq 0 -or @($sideDishTerms | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }).Count -ne $sideDishTerms.Count) {
-        Add-DingdongCopyError $errors 'incomplete-side-dish-fact' '' "Side-dish fact $id must declare non-empty terms."
-      }
     }
   }
 
@@ -382,15 +370,9 @@ function Test-DingdongCopyCompliance {
     Add-DingdongCopyError $errors 'missing-replacements' '' 'copy.json must contain textReplacements.'
   }
 
-  $requiredPrefixByTargetId = @{}
   $requiredTextByTargetId = @{}
   if (Test-ObjectProperty $definition 'styleAdaptedTextTargets') {
     foreach ($target in @($definition.styleAdaptedTextTargets)) {
-      if ((Test-ObjectProperty $target 'id') -and
-          (Test-ObjectProperty $target 'requiredPrefix') -and
-          -not [string]::IsNullOrWhiteSpace([string]$target.requiredPrefix)) {
-        $requiredPrefixByTargetId[[string]$target.id] = [string]$target.requiredPrefix
-      }
       if ((Test-ObjectProperty $target 'id') -and
           (Test-ObjectProperty $target 'requiredText')) {
         $requiredTextByTargetId[[string]$target.id] = [string]$target.requiredText
@@ -400,7 +382,7 @@ function Test-DingdongCopyCompliance {
 
   $seenIds = @{}
   $seenPaths = @{}
-  $board6SideDishFactByTargetId = @{}
+  # 版6沿用通用事实与文案审核，不再强制标题前缀或配菜分配格式。
   foreach ($replacement in $replacements) {
     $label = if (Test-ObjectProperty $replacement 'label') { [string]$replacement.label } else { '' }
     if ([string]::IsNullOrWhiteSpace($label)) { $label = '未命名文案' }
@@ -416,12 +398,6 @@ function Test-DingdongCopyCompliance {
     $mode = if (Test-ObjectProperty $replacement 'mode') { [string]$replacement.mode } else { '' }
     $evidenceIds = if (Test-ObjectProperty $replacement 'evidenceIds') { @($replacement.evidenceIds | ForEach-Object { [string]$_ }) } else { @() }
 
-    if ($requiredPrefixByTargetId.ContainsKey($id)) {
-      $requiredPrefix = [string]$requiredPrefixByTargetId[$id]
-      if (-not $newText.StartsWith($requiredPrefix, [StringComparison]::Ordinal)) {
-        Add-DingdongCopyError $errors 'required-copy-prefix' $label ('版6标题必须以“{0}”开头。' -f $requiredPrefix)
-      }
-    }
     if ($requiredTextByTargetId.ContainsKey($id)) {
       $requiredText = [string]$requiredTextByTargetId[$id]
       if ($newText -cne $requiredText) {
@@ -469,30 +445,6 @@ function Test-DingdongCopyCompliance {
         Add-DingdongCopyError $errors 'unknown-evidence' $label "Unknown evidence id: $evidenceId"
       }
     }
-    if ($board6SideDishTargetIds -ccontains $id) {
-      $citedSideDishFactIds = @($evidenceIds | Where-Object {
-        $factById.ContainsKey($_) -and
-        (Test-ObjectProperty $factById[$_] 'category') -and
-        [string]$factById[$_].category -ceq 'side-dish'
-      })
-      if ($citedSideDishFactIds.Count -eq 0) {
-        Add-DingdongCopyError $errors 'missing-board6-side-dish-evidence' $label '版6两个说明必须分别描写配菜，并引用 category=side-dish 的配菜事实。'
-      } else {
-        $matchingSideDishFactIds = @($citedSideDishFactIds | Where-Object {
-          $sideDishFact = $factById[$_]
-          $terms = if (Test-ObjectProperty $sideDishFact 'terms') { @($sideDishFact.terms | ForEach-Object { [string]$_ }) } else { @() }
-          @($terms | Where-Object { -not [string]::IsNullOrWhiteSpace($_) -and $newText.IndexOf($_, [StringComparison]::Ordinal) -ge 0 }).Count -gt 0
-        })
-        if ($matchingSideDishFactIds.Count -eq 0) {
-          Add-DingdongCopyError $errors 'board6-side-dish-term-missing' $label '版6配菜说明必须在正文中出现所引用配菜事实的 terms 之一。'
-        } elseif ($matchingSideDishFactIds.Count -gt 1) {
-          Add-DingdongCopyError $errors 'ambiguous-board6-side-dish-copy' $label '版6每个说明只可绑定并描写一种配菜。'
-        } else {
-          $board6SideDishFactByTargetId[$id] = [string]$matchingSideDishFactIds[0]
-        }
-      }
-    }
-
     $sourceGrammar = @()
     $proposedGrammar = @()
     $sourceCounts = @()
@@ -655,13 +607,6 @@ function Test-DingdongCopyCompliance {
       proposedCounts = ($proposedCounts -join ' / ')
       evidence = $evidenceSummary
     })
-  }
-
-  if ($board6SideDishFactByTargetId.Count -gt 1) {
-    $boundSideDishFactIds = @($board6SideDishFactByTargetId.Values | Select-Object -Unique)
-    if ($boundSideDishFactIds.Count -ne $board6SideDishFactByTargetId.Count) {
-      Add-DingdongCopyError $errors 'duplicate-board6-side-dish-copy' '' '版6两个说明必须分别描写不同配菜，不得重复绑定同一种配菜。'
-    }
   }
 
   $corpus = (@($facts | ForEach-Object { [string]$_.statement }) + @($replacements | ForEach-Object {

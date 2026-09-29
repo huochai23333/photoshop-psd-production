@@ -108,30 +108,7 @@ try {
   $cliResult = & (Join-Path $PSScriptRoot 'test-dingdong-copy-compliance.ps1') -CopyPath $validPath | ConvertFrom-Json
   Assert-True $cliResult.ok 'copy compliance CLI accepts valid copyVersion 2 input'
 
-  $board6 = $layers['3899']
-  $prefixAccepted = Copy-TestObject $valid
-  $prefixAcceptedText = "特调酱香拌面调味酱`r酱香浓郁均匀挂汁 浓而油亮`r"
-  $prefixAccepted.textReplacements = @($prefixAccepted.textReplacements) + @(
-    [pscustomobject][ordered]@{
-      label = '版6酱料卖点'
-      id = 3899
-      path = [string]$board6.path
-      oldText = [string]$board6.text
-      text = $prefixAcceptedText
-      sourceText = $prefixAcceptedText
-      mode = 'verbatim'
-      evidenceIds = @('fact-product')
-    }
-  )
-  $prefixAcceptedResult = Test-DingdongCopyCompliance -CopyPath (Write-TestCopy $prefixAccepted 'board6-prefix-accepted') -SkillRoot $skillRoot
-  Assert-True $prefixAcceptedResult.ok 'board 6 title accepts the required TeDiao prefix'
-
-  $prefixRejected = Copy-TestObject $prefixAccepted
-  $prefixRejectedText = "秘制酱香拌面调味酱`r酱香浓郁均匀挂汁 浓而油亮`r"
-  $prefixRejected.textReplacements[1].text = $prefixRejectedText
-  $prefixRejected.textReplacements[1].sourceText = $prefixRejectedText
-  $prefixRejectedResult = Test-DingdongCopyCompliance -CopyPath (Write-TestCopy $prefixRejected 'board6-prefix-rejected') -SkillRoot $skillRoot
-  Assert-ErrorCode $prefixRejectedResult 'required-copy-prefix' 'board 6 title rejects any opening other than TeDiao'
+  # 版6标题按产品文案撰写，不再要求固定开头。
 
   $board8 = $layers['4076']
   $board8Accepted = Copy-TestObject $valid
@@ -163,7 +140,6 @@ try {
     $templateDefinition = Read-Utf8Json $templateContext.definitionPath
     $board8Target = @($templateDefinition.styleAdaptedTextTargets | Where-Object { [string]$_.id -ceq '4076' })
     Assert-True ($board8Target.Count -eq 1 -and [string]$board8Target[0].requiredText -ceq $board8AcceptedText) "$templateId registers the locked board 8 text"
-    Assert-True ((@($templateDefinition.copyValidation.board6SideDishTargetIds | ForEach-Object { [string]$_ }) -join ',') -ceq '4811,4819') "$templateId registers both board 6 side-dish description targets"
   }
 
   $grammarReference = [IO.File]::ReadAllText(
@@ -229,9 +205,6 @@ try {
   Assert-True ($grammarReference.Contains('forbidden-block4-instruction-copy') -and
     $grammarReference.Contains('版4也永久禁止复述使用步骤') -and
     $dingdongReference.Contains('不得复述食用步骤、火候、时长或烹饪操作')) 'workflow documents the script-enforced block-4 instruction rejection'
-  Assert-True ($grammarReference.Contains('missing-board6-side-dish-evidence') -and
-    $grammarReference.Contains('duplicate-board6-side-dish-copy') -and
-    $dingdongReference.Contains('版6两个说明必须各写一种不同配菜')) 'workflow documents the two distinct board-6 side-dish descriptions'
   Assert-True ($grammarReference.Contains('下班回家轻松煮') -and
     $grammarReference.Contains('煮好后热乎上桌') -and
     $grammarReference.Contains('required-exact-copy') -and
@@ -495,81 +468,6 @@ try {
   Assert-True (@($nonBlock4PackagingResult.errors | Where-Object {
       [string]$_.code -ceq 'forbidden-block4-prep-packaging-copy'
     }).Count -eq 0) 'block-4 prep and packaging rule does not leak into other boards'
-
-  $board6OnionLayer = $layers['4811']
-  $board6SproutLayer = $layers['4819']
-  $validBoard6SideDishes = [ordered]@{
-    copyVersion = 2
-    templateId = 'dingdong-haoshiguang-detail-2step'
-    facts = @(
-      [ordered]@{
-        id = 'fact-onion'; kind = 'document'; category = 'side-dish'; terms = @('洋葱', '洋葱丝')
-        statement = '当前产品配菜含洋葱丝。'; source = '测试产品资料'
-      }
-      [ordered]@{
-        id = 'fact-sprout'; kind = 'document'; category = 'side-dish'; terms = @('豆芽', '绿豆芽')
-        statement = '当前产品配菜含绿豆芽。'; source = '测试产品资料'
-      }
-    )
-    terminologyDecisions = @()
-    protectedOverrides = @()
-    textReplacements = @(
-      [ordered]@{
-        label = '版6洋葱说明'; id = 4811; path = [string]$board6OnionLayer.path; oldText = [string]$board6OnionLayer.text
-        text = "洋葱：炒制后清甜爽脆，增添香气`r"; mode = 'structure-adapted'; evidenceIds = @('fact-onion')
-        lines = @([ordered]@{
-          sourceSegments = @(
-            [ordered]@{ text = '金蒜'; pos = 'noun'; role = 'ingredient'; separatorAfter = '：' }
-            [ordered]@{ text = '油炸至'; pos = 'verb'; role = 'method'; separatorAfter = '' }
-            [ordered]@{ text = '金黄酥脆'; pos = 'fixed'; role = 'result'; separatorAfter = '，' }
-            [ordered]@{ text = '满口焦香'; pos = 'fixed'; role = 'flavour'; separatorAfter = '' }
-          )
-          proposedSegments = @(
-            [ordered]@{ text = '洋葱'; pos = 'noun'; role = 'ingredient'; separatorAfter = '：' }
-            [ordered]@{ text = '炒制后'; pos = 'verb'; role = 'method'; separatorAfter = '' }
-            [ordered]@{ text = '清甜爽脆'; pos = 'fixed'; role = 'result'; separatorAfter = '，' }
-            [ordered]@{ text = '增添香气'; pos = 'fixed'; role = 'flavour'; separatorAfter = '' }
-          )
-        })
-      }
-      [ordered]@{
-        label = '版6豆芽说明'; id = 4819; path = [string]$board6SproutLayer.path; oldText = [string]$board6SproutLayer.text
-        text = "豆芽：保持根根口感脆嫩，提鲜解腻`r`r"; mode = 'structure-adapted'; evidenceIds = @('fact-sprout')
-        lines = @([ordered]@{
-          sourceSegments = @(
-            [ordered]@{ text = '银蒜'; pos = 'noun'; role = 'ingredient'; separatorAfter = '：' }
-            [ordered]@{ text = '保留'; pos = 'verb'; role = 'action'; separatorAfter = '' }
-            [ordered]@{ text = '生蒜原汁'; pos = 'noun'; role = 'flavour-base'; separatorAfter = '' }
-            [ordered]@{ text = '辛辣'; pos = 'adjective'; role = 'flavour'; separatorAfter = '，' }
-            [ordered]@{ text = '提鲜'; pos = 'verb'; role = 'benefit'; separatorAfter = '' }
-            [ordered]@{ text = '去腥'; pos = 'verb'; role = 'benefit'; separatorAfter = '' }
-          )
-          proposedSegments = @(
-            [ordered]@{ text = '豆芽'; pos = 'noun'; role = 'ingredient'; separatorAfter = '：' }
-            [ordered]@{ text = '保持'; pos = 'verb'; role = 'action'; separatorAfter = '' }
-            [ordered]@{ text = '根根口感'; pos = 'noun'; role = 'flavour-base'; separatorAfter = '' }
-            [ordered]@{ text = '脆嫩'; pos = 'adjective'; role = 'flavour'; separatorAfter = '，' }
-            [ordered]@{ text = '提鲜'; pos = 'verb'; role = 'benefit'; separatorAfter = '' }
-            [ordered]@{ text = '解腻'; pos = 'verb'; role = 'benefit'; separatorAfter = '' }
-          )
-        })
-      }
-    )
-  }
-  $validBoard6SideDishesResult = Test-DingdongCopyCompliance -CopyPath (Write-TestCopy $validBoard6SideDishes 'valid-board6-side-dishes') -SkillRoot $skillRoot
-  Assert-True $validBoard6SideDishesResult.ok '版6 two descriptions accept two distinct side dishes with bound facts'
-
-  $missingBoard6SideDishEvidence = Copy-TestObject $validBoard6SideDishes
-  $missingBoard6SideDishEvidence.facts[0].category = 'ingredient'
-  $missingBoard6SideDishEvidenceResult = Test-DingdongCopyCompliance -CopyPath (Write-TestCopy $missingBoard6SideDishEvidence 'missing-board6-side-dish-evidence') -SkillRoot $skillRoot
-  Assert-ErrorCode $missingBoard6SideDishEvidenceResult 'missing-board6-side-dish-evidence' '版6 description rejects a non-side-dish fact'
-
-  $duplicateBoard6SideDish = Copy-TestObject $validBoard6SideDishes
-  $duplicateBoard6SideDish.textReplacements[1].text = "洋葱：保持根根口感脆嫩，提鲜解腻`r`r"
-  $duplicateBoard6SideDish.textReplacements[1].lines[0].proposedSegments[0].text = '洋葱'
-  $duplicateBoard6SideDish.textReplacements[1].evidenceIds = @('fact-onion')
-  $duplicateBoard6SideDishResult = Test-DingdongCopyCompliance -CopyPath (Write-TestCopy $duplicateBoard6SideDish 'duplicate-board6-side-dish') -SkillRoot $skillRoot
-  Assert-ErrorCode $duplicateBoard6SideDishResult 'duplicate-board6-side-dish-copy' '版6 two descriptions reject the same side dish twice'
 
   $badLineCount = Copy-TestObject $valid
   $badLineCount.textReplacements[0].text = '酸香浓郁 肉香醇厚'
@@ -964,26 +862,7 @@ try {
     -not (Test-Path -LiteralPath $handBlock4RunPath) -and
     -not (Test-Path -LiteralPath (Join-Path $tempRoot 'hand-block4-run.working.psd'))) 'handwritten jobs cannot bypass the block-4 prep and packaging detector'
 
-  $handPrefixTask = Copy-TestObject $genericTask
-  $handPrefixTask.textReplacements = @(
-    [ordered]@{
-      id = 3899
-      text = "秘制酱香拌面调味酱`r酱香浓郁均匀挂汁 浓而油亮`r"
-      mode = 'structure-adapted'
-    }
-  )
-  $handPrefixTaskPath = Join-Path $tempRoot 'hand-board6-prefix-job.json'
-  Write-Utf8Json -Path $handPrefixTaskPath -Value $handPrefixTask | Out-Null
-  $handPrefixRunPath = Join-Path $tempRoot 'hand-board6-prefix-run.json'
-  $handPrefixFailed = $false
-  try {
-    & (Join-Path $PSScriptRoot 'prepare-psd-job.ps1') -TaskPath $handPrefixTaskPath -RunPath $handPrefixRunPath | Out-Null
-  } catch {
-    $handPrefixFailed = $_.Exception.Message -like '*required-copy-prefix*'
-  }
-  Assert-True ($handPrefixFailed -and
-    -not (Test-Path -LiteralPath $handPrefixRunPath) -and
-    -not (Test-Path -LiteralPath (Join-Path $tempRoot 'hand-board6-prefix-run.working.psd'))) 'handwritten jobs cannot bypass the board 6 TeDiao prefix requirement'
+  # 版6工作副本准备流程不再以标题前缀作为阻断条件。
 
   $handBoard8Task = Copy-TestObject $genericTask
   $handBoard8Task.textReplacements = @(
