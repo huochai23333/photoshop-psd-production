@@ -175,7 +175,8 @@ if ($mappedTextReplacements.Count -gt 0) {
       $normalizedMainSteps = Normalize-DingdongLineBreaks $replacementText
       $searchStart = 0
       foreach ($stepText in $stepTexts) {
-        $normalizedStep = Normalize-DingdongLineBreaks $stepText
+        # 主图会裁掉整段末尾换行；逐步比较时也裁掉每步的末尾换行，但保留步骤正文及顺序。
+        $normalizedStep = (Normalize-DingdongLineBreaks $stepText).TrimEnd([char[]]"`n")
         $foundAt = $normalizedMainSteps.IndexOf($normalizedStep, $searchStart, [StringComparison]::Ordinal)
         if ($foundAt -lt 0) {
           throw "Main-image step block does not preserve approved verbatim steps in order for target $replacementId."
