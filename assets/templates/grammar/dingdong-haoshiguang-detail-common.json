@@ -1,6 +1,6 @@
 {
   "grammarVersion": 1,
-  "description": "Template-owned source grammar. Agents may annotate proposed copy, but cannot redefine the original grammar.",
+  "description": "Sample segmentation used by regression fixtures only. Production copy follows current product facts and layout; no source grammar matching is required.",
   "targets": [
     {
       "id": 10,

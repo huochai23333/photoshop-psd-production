@@ -4,52 +4,8 @@ if (-not (Get-Command Read-Utf8Json -ErrorAction SilentlyContinue)) {
   . (Join-Path $PSScriptRoot 'psd-job-common.ps1')
 }
 
-$script:DingdongAllowedPartsOfSpeech = @(
-  'noun',
-  'verb',
-  'adjective',
-  'adverb',
-  'number',
-  'unit',
-  'fixed'
-)
-
-function Normalize-DingdongLineBreaks {
-  param([AllowNull()][string]$Text)
-
-  if ($null -eq $Text) { return '' }
-  return $Text.Replace("`r`n", "`n").Replace("`r", "`n")
-}
-
-function Get-DingdongTrailingLineBreakCount {
-  param([AllowNull()][string]$Text)
-
-  $normalized = Normalize-DingdongLineBreaks $Text
-  $count = 0
-  for ($i = $normalized.Length - 1; $i -ge 0; $i--) {
-    if ($normalized[$i] -ne "`n") { break }
-    $count++
-  }
-  return $count
-}
-
-function Get-DingdongVisibleLength {
-  param([Parameter(Mandatory = $true)][AllowEmptyString()][string]$Text)
-
-  if ($Text.Length -eq 0) { return 0 }
-  return [Globalization.StringInfo]::ParseCombiningCharacters($Text).Count
-}
-
-function Get-DingdongContentLines {
-  param([AllowNull()][string]$Text)
-
-  $normalized = Normalize-DingdongLineBreaks $Text
-  while ($normalized.EndsWith("`n", [StringComparison]::Ordinal)) {
-    $normalized = $normalized.Substring(0, $normalized.Length - 1)
-  }
-  if ($normalized.Length -eq 0) { return @('') }
-  return @($normalized.Split("`n"))
-}
+# 将版面与词组检查独立加载，主流程只负责事实、保护范围和确认绑定。
+. (Join-Path $PSScriptRoot 'dingdong-copy-layout.ps1')
 
 function Get-DingdongTemplateContext {
   param(
@@ -97,73 +53,6 @@ function Get-DingdongLayerLookup {
   return $byId
 }
 
-function Convert-DingdongSegmentsToText {
-  param([Parameter(Mandatory = $true)][object[]]$Segments)
-
-  $builder = [Text.StringBuilder]::new()
-  foreach ($segment in $Segments) {
-    [void]$builder.Append([string]$segment.text)
-    [void]$builder.Append([string]$segment.separatorAfter)
-  }
-  return $builder.ToString()
-}
-
-function Get-DingdongGrammarLabel {
-  param([Parameter(Mandatory = $true)][object[]]$Segments)
-
-  return (($Segments | ForEach-Object { "$([string]$_.pos):$([string]$_.role)" }) -join ' + ')
-}
-
-function Get-DingdongCountLabel {
-  param([Parameter(Mandatory = $true)][object[]]$Segments)
-
-  $parts = [Collections.Generic.List[string]]::new()
-  for ($i = 0; $i -lt $Segments.Count; $i++) {
-    [void]$parts.Add([string](Get-DingdongVisibleLength ([string]$Segments[$i].text)))
-    if ($i -lt $Segments.Count - 1) {
-      if ([string]::IsNullOrEmpty([string]$Segments[$i].separatorAfter)) {
-        [void]$parts.Add('+')
-      } else {
-        [void]$parts.Add(' | ')
-      }
-    }
-  }
-  return ($parts -join '')
-}
-
-function Get-DingdongClauseLengths {
-  param([Parameter(Mandatory = $true)][object[]]$Segments)
-
-  $lengths = [Collections.Generic.List[int]]::new()
-  $current = 0
-  for ($i = 0; $i -lt $Segments.Count; $i++) {
-    $current += Get-DingdongVisibleLength ([string]$Segments[$i].text)
-    if (-not [string]::IsNullOrEmpty([string]$Segments[$i].separatorAfter)) {
-      [void]$lengths.Add($current)
-      $current = 0
-    }
-  }
-  if ($current -gt 0 -or $lengths.Count -eq 0) {
-    [void]$lengths.Add($current)
-  }
-  return @($lengths)
-}
-
-function Test-DingdongSegmentsEqual {
-  param(
-    [Parameter(Mandatory = $true)][object[]]$Left,
-    [Parameter(Mandatory = $true)][object[]]$Right
-  )
-
-  if ($Left.Count -ne $Right.Count) { return $false }
-  for ($index = 0; $index -lt $Left.Count; $index++) {
-    foreach ($field in @('text', 'pos', 'role', 'separatorAfter')) {
-      if ([string]$Left[$index].$field -cne [string]$Right[$index].$field) { return $false }
-    }
-  }
-  return $true
-}
-
 function Add-DingdongCopyError {
   param(
     [Parameter(Mandatory = $true)]$Errors,
@@ -177,48 +66,6 @@ function Add-DingdongCopyError {
     label = $Label
     message = $Message
   })
-}
-
-function Test-DingdongSegmentSet {
-  param(
-    [Parameter(Mandatory = $true)][object[]]$Segments,
-    [Parameter(Mandatory = $true)][string]$Side,
-    [Parameter(Mandatory = $true)][string]$Label,
-    [Parameter(Mandatory = $true)]$Errors
-  )
-
-  if ($Segments.Count -eq 0) {
-    Add-DingdongCopyError $Errors 'empty-segments' $Label "$Side segments must not be empty."
-    return
-  }
-  for ($i = 0; $i -lt $Segments.Count; $i++) {
-    $segment = $Segments[$i]
-    $prefix = "$Side segment $($i + 1)"
-    foreach ($property in @('text', 'pos', 'role', 'separatorAfter')) {
-      if (-not (Test-ObjectProperty $segment $property)) {
-        Add-DingdongCopyError $Errors 'missing-segment-field' $Label "$prefix is missing $property."
-      }
-    }
-    $text = if (Test-ObjectProperty $segment 'text') { [string]$segment.text } else { '' }
-    $pos = if (Test-ObjectProperty $segment 'pos') { [string]$segment.pos } else { '' }
-    $role = if (Test-ObjectProperty $segment 'role') { [string]$segment.role } else { '' }
-    $separator = if (Test-ObjectProperty $segment 'separatorAfter') { [string]$segment.separatorAfter } else { '' }
-    if ([string]::IsNullOrEmpty($text)) {
-      Add-DingdongCopyError $Errors 'empty-segment-text' $Label "$prefix text must not be empty."
-    }
-    if ($text -match '\s') {
-      Add-DingdongCopyError $Errors 'segment-contains-whitespace' $Label "$prefix text must not contain whitespace; use separatorAfter."
-    }
-    if ($script:DingdongAllowedPartsOfSpeech -cnotcontains $pos) {
-      Add-DingdongCopyError $Errors 'invalid-pos' $Label "$prefix pos is invalid: $pos"
-    }
-    if ([string]::IsNullOrWhiteSpace($role)) {
-      Add-DingdongCopyError $Errors 'missing-role' $Label "$prefix role must not be empty."
-    }
-    if ($separator -match '[\p{L}\p{N}]') {
-      Add-DingdongCopyError $Errors 'invalid-separator' $Label "$prefix separatorAfter may contain only punctuation or whitespace."
-    }
-  }
 }
 
 function Test-DingdongTaskReplacementBinding {
@@ -292,31 +139,6 @@ function Test-DingdongCopyCompliance {
   $definition = Read-Utf8Json $context.definitionPath
   $index = Read-Utf8Json $context.indexPath
   $layerById = Get-DingdongLayerLookup $index
-  $grammarById = @{}
-  if (-not (Test-ObjectProperty $definition 'copyGrammarBaselinePath') -or
-      [string]::IsNullOrWhiteSpace([string]$definition.copyGrammarBaselinePath)) {
-    Add-DingdongCopyError $errors 'missing-grammar-baseline' '' 'Dingdong detail template has no template-owned grammar baseline.'
-  } else {
-    $grammarPath = [IO.Path]::GetFullPath((Join-Path $SkillRoot ([string]$definition.copyGrammarBaselinePath)))
-    if (-not (Test-Path -LiteralPath $grammarPath -PathType Leaf)) {
-      Add-DingdongCopyError $errors 'missing-grammar-baseline' '' "Template grammar baseline does not exist: $grammarPath"
-    } else {
-      $grammarBaseline = Read-Utf8Json $grammarPath
-      foreach ($grammarTarget in @($grammarBaseline.targets)) {
-        $grammarId = [string]$grammarTarget.id
-        if ([string]::IsNullOrWhiteSpace($grammarId) -or $grammarById.ContainsKey($grammarId)) {
-          Add-DingdongCopyError $errors 'invalid-grammar-baseline' '' "Grammar baseline contains a missing or duplicate target id: $grammarId"
-        } else {
-          $grammarById[$grammarId] = $grammarTarget
-        }
-      }
-    }
-  }
-  $maxDelta = 1
-  if ((Test-ObjectProperty $definition 'copyValidation') -and
-      (Test-ObjectProperty $definition.copyValidation 'maxSegmentCharacterDelta')) {
-    $maxDelta = [int]$definition.copyValidation.maxSegmentCharacterDelta
-  }
   $facts = @()
   if (Test-ObjectProperty $copy 'facts') { $facts = @($copy.facts) }
   $factById = @{}
@@ -445,10 +267,9 @@ function Test-DingdongCopyCompliance {
         Add-DingdongCopyError $errors 'unknown-evidence' $label "Unknown evidence id: $evidenceId"
       }
     }
-    $sourceGrammar = @()
-    $proposedGrammar = @()
-    $sourceCounts = @()
-    $proposedCounts = @()
+    # 字数按实际行记录，仅供后续预览参考，不作为语言结构限制。
+    $sourceCounts = @((Get-DingdongContentLines $oldText) | ForEach-Object { Get-DingdongVisibleLength $_ })
+    $proposedCounts = @((Get-DingdongContentLines $newText) | ForEach-Object { Get-DingdongVisibleLength $_ })
     if ($mode -ceq 'verbatim') {
       if (-not (Test-ObjectProperty $replacement 'sourceText')) {
         Add-DingdongCopyError $errors 'missing-source-text' $label 'Verbatim replacement must declare sourceText.'
@@ -468,109 +289,7 @@ function Test-DingdongCopyCompliance {
           Add-DingdongCopyError $errors 'forbidden-block4-instruction-copy' $label $block4InstructionMessage
         }
       }
-      if (-not (Test-ObjectProperty $replacement 'lines')) {
-        Add-DingdongCopyError $errors 'missing-lines' $label 'Structure-adapted replacement must declare lines.'
-      } else {
-        $lines = @($replacement.lines)
-        $baselineLines = @()
-        if (-not $grammarById.ContainsKey($id)) {
-          Add-DingdongCopyError $errors 'missing-target-grammar' $label "Template grammar baseline has no source grammar for target $id."
-        } else {
-          $baselineLines = @($grammarById[$id].lines)
-          if ($baselineLines.Count -ne $lines.Count) {
-            Add-DingdongCopyError $errors 'source-grammar-line-count-mismatch' $label 'Task source grammar line count differs from the template baseline.'
-          }
-        }
-        $sourceLines = @(Get-DingdongContentLines $oldText)
-        $proposedLines = @(Get-DingdongContentLines $newText)
-        $sourceTrailingLineBreaks = Get-DingdongTrailingLineBreakCount $oldText
-        $proposedTrailingLineBreaks = Get-DingdongTrailingLineBreakCount $newText
-        if ($sourceTrailingLineBreaks -ne $proposedTrailingLineBreaks) {
-          Add-DingdongCopyError $errors 'trailing-line-break-mismatch' $label 'Trailing line-break count differs between original and proposed text.'
-        }
-        if ($sourceLines.Count -ne $proposedLines.Count -or $lines.Count -ne $sourceLines.Count) {
-          Add-DingdongCopyError $errors 'line-count-mismatch' $label 'Original, proposed, and annotated line counts must match.'
-        }
-        $lineCount = [Math]::Min($lines.Count, [Math]::Min($sourceLines.Count, $proposedLines.Count))
-        for ($lineIndex = 0; $lineIndex -lt $lineCount; $lineIndex++) {
-          $line = $lines[$lineIndex]
-          $sourceSegments = if (Test-ObjectProperty $line 'sourceSegments') { @($line.sourceSegments) } else { @() }
-          $proposedSegments = if (Test-ObjectProperty $line 'proposedSegments') { @($line.proposedSegments) } else { @() }
-          if ($lineIndex -lt $baselineLines.Count) {
-            $baselineSegments = @($baselineLines[$lineIndex].sourceSegments)
-            if (-not (Test-DingdongSegmentsEqual -Left $sourceSegments -Right $baselineSegments)) {
-              Add-DingdongCopyError $errors 'source-grammar-baseline-mismatch' $label "Source grammar differs from the template baseline on line $($lineIndex + 1)."
-            }
-            $sourceSegments = $baselineSegments
-          }
-          $sourceLineIsEmpty = [string]::IsNullOrEmpty([string]$sourceLines[$lineIndex])
-          $proposedLineIsEmpty = [string]::IsNullOrEmpty([string]$proposedLines[$lineIndex])
-          if ($sourceLineIsEmpty -and $proposedLineIsEmpty) {
-            if ($sourceSegments.Count -ne 0 -or $proposedSegments.Count -ne 0) {
-              Add-DingdongCopyError $errors 'empty-line-annotation' $label "Blank line $($lineIndex + 1) must use empty sourceSegments and proposedSegments."
-            }
-            $sourceGrammar += '空行'
-            $proposedGrammar += '空行'
-            $sourceCounts += '0'
-            $proposedCounts += '0'
-            continue
-          }
-          if ($sourceLineIsEmpty -ne $proposedLineIsEmpty) {
-            Add-DingdongCopyError $errors 'blank-line-mismatch' $label "Blank-line position differs on line $($lineIndex + 1)."
-          }
-          Test-DingdongSegmentSet $sourceSegments 'source' $label $errors
-          Test-DingdongSegmentSet $proposedSegments 'proposed' $label $errors
-          foreach ($proposedSegment in $proposedSegments) {
-            if ([string]$proposedSegment.text -match '^入\p{IsCJKUnifiedIdeographs}$') {
-              $ruNounMessage = '结构适配文案禁止使用二字“入+名词”词组：{0}。代理生成的普通候选请先改写；若这是用户明确指定的逐字替换，请把合并后的目标全文及 sourceText 登记为 verbatim，并记录 userInstruction。' -f [string]$proposedSegment.text
-              Add-DingdongCopyError $errors 'forbidden-ru-noun-pattern' $label $ruNounMessage
-            }
-          }
-          if ((Convert-DingdongSegmentsToText $sourceSegments) -cne $sourceLines[$lineIndex]) {
-            Add-DingdongCopyError $errors 'source-reconstruction-mismatch' $label "Source segments do not reconstruct line $($lineIndex + 1)."
-          }
-          if ((Convert-DingdongSegmentsToText $proposedSegments) -cne $proposedLines[$lineIndex]) {
-            Add-DingdongCopyError $errors 'proposed-reconstruction-mismatch' $label "Proposed segments do not reconstruct line $($lineIndex + 1)."
-          }
-          if ($sourceSegments.Count -ne $proposedSegments.Count) {
-            Add-DingdongCopyError $errors 'segment-count-mismatch' $label "Segment count differs on line $($lineIndex + 1)."
-          }
-          $segmentCount = [Math]::Min($sourceSegments.Count, $proposedSegments.Count)
-          for ($segmentIndex = 0; $segmentIndex -lt $segmentCount; $segmentIndex++) {
-            $sourceSegment = $sourceSegments[$segmentIndex]
-            $proposedSegment = $proposedSegments[$segmentIndex]
-            if ([string]$sourceSegment.pos -cne [string]$proposedSegment.pos) {
-              Add-DingdongCopyError $errors 'pos-mismatch' $label "Part of speech differs at line $($lineIndex + 1), segment $($segmentIndex + 1)."
-            }
-            if ([string]$sourceSegment.role -cne [string]$proposedSegment.role) {
-              Add-DingdongCopyError $errors 'role-mismatch' $label "Semantic role differs at line $($lineIndex + 1), segment $($segmentIndex + 1)."
-            }
-            if ([string]$sourceSegment.separatorAfter -cne [string]$proposedSegment.separatorAfter) {
-              Add-DingdongCopyError $errors 'separator-mismatch' $label "Spacing or punctuation differs at line $($lineIndex + 1), segment $($segmentIndex + 1)."
-            }
-            $sourceLength = Get-DingdongVisibleLength ([string]$sourceSegment.text)
-            $proposedLength = Get-DingdongVisibleLength ([string]$proposedSegment.text)
-            if ([Math]::Abs($sourceLength - $proposedLength) -gt $maxDelta) {
-              Add-DingdongCopyError $errors 'segment-length-mismatch' $label "Character difference exceeds $maxDelta at line $($lineIndex + 1), segment $($segmentIndex + 1)."
-            }
-          }
-          $sourceClauseLengths = @(Get-DingdongClauseLengths $sourceSegments)
-          $proposedClauseLengths = @(Get-DingdongClauseLengths $proposedSegments)
-          if ($sourceClauseLengths.Count -ne $proposedClauseLengths.Count) {
-            Add-DingdongCopyError $errors 'clause-count-mismatch' $label "Clause count differs on line $($lineIndex + 1)."
-          }
-          $clauseCount = [Math]::Min($sourceClauseLengths.Count, $proposedClauseLengths.Count)
-          for ($clauseIndex = 0; $clauseIndex -lt $clauseCount; $clauseIndex++) {
-            if ([Math]::Abs($sourceClauseLengths[$clauseIndex] - $proposedClauseLengths[$clauseIndex]) -gt $maxDelta) {
-              Add-DingdongCopyError $errors 'clause-length-mismatch' $label "Clause character difference exceeds $maxDelta at line $($lineIndex + 1), clause $($clauseIndex + 1)."
-            }
-          }
-          $sourceGrammar += Get-DingdongGrammarLabel $sourceSegments
-          $proposedGrammar += Get-DingdongGrammarLabel $proposedSegments
-          $sourceCounts += Get-DingdongCountLabel $sourceSegments
-          $proposedCounts += Get-DingdongCountLabel $proposedSegments
-        }
-      }
+      Test-DingdongNaturalCopyLines -Replacement $replacement -OldText $oldText -NewText $newText -Label $label -Errors $errors
     }
 
     if (Test-ObjectProperty $definition 'legacyCopyTerms') {
@@ -601,8 +320,8 @@ function Test-DingdongCopyCompliance {
       mode = $mode
       oldText = $oldText
       text = $newText
-      sourceGrammar = ($sourceGrammar -join ' / ')
-      proposedGrammar = ($proposedGrammar -join ' / ')
+      sourceLayout = ('{0} 行；尾随换行 {1}' -f @(Get-DingdongContentLines $oldText).Count, (Get-DingdongTrailingLineBreakCount $oldText))
+      copyMethod = $(if ($mode -ceq 'verbatim') { '逐字写入' } else { '自然改写；待预览检查版面' })
       sourceCounts = ($sourceCounts -join ' / ')
       proposedCounts = ($proposedCounts -join ' / ')
       evidence = $evidenceSummary

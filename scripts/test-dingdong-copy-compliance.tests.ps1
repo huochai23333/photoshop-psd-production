@@ -104,7 +104,7 @@ $valid = [ordered]@{
 try {
   $validPath = Write-TestCopy $valid 'valid'
   $validResult = Test-DingdongCopyCompliance -CopyPath $validPath -SkillRoot $skillRoot
-  Assert-True $validResult.ok 'matching grammar and exact segment lengths pass'
+  Assert-True $validResult.ok 'current-product copy with matching layout passes'
   $cliResult = & (Join-Path $PSScriptRoot 'test-dingdong-copy-compliance.ps1') -CopyPath $validPath | ConvertFrom-Json
   Assert-True $cliResult.ok 'copy compliance CLI accepts valid copyVersion 2 input'
 
@@ -179,10 +179,10 @@ try {
     $dingdongReference.Contains('SHA-256 是内部防篡改绑定') -and
     $grammarReference.Contains('不再请求用户确认哈希、任务或 PSD 写入')) 'copy confirmation directly authorizes detail-page templating'
   # 聊天审稿使用两列表；确认后的修改仍须使旧审核稿与套版授权失效。
-  Assert-True ($skillReference.Contains('不得基于旧候选自由润色、降低标准或事后补标签') -and
+  Assert-True ($skillReference.Contains('不得跳过商品事实、自然度和版面审核') -and
     $dingdongReference.Contains('确认阶段的重新生成不是自由润色') -and
     $dingdongReference.Contains('未点名行逐字符不变') -and
-    $grammarReference.Contains('完整执行初稿的资料门槛、审核顺序、语法、分句、字数') -and
+    $grammarReference.Contains('完整执行初稿的资料门槛、自然度审核、版面检查') -and
     $grammarReference.Contains('任何后续修改都使上一版两列表、正式审核稿、`copy.json`、SHA-256、任务及套版授权失效')) 'confirmation-stage rewrites inherit every initial copy rule and invalidate stale approvals'
   Assert-True ($skillReference.Contains('每个可改板块一行') -and
     $dingdongReference.Contains('禁止把版4主料标题与口感说明、版6标题与两条说明等拆成独立审核行') -and
@@ -265,25 +265,25 @@ try {
   $clausePlusTwo.textReplacements[0].lines[0].proposedSegments[1].text = '很浓郁'
   $clausePlusTwoPath = Write-TestCopy $clausePlusTwo 'clause-plus-two'
   $clausePlusTwoResult = Test-DingdongCopyCompliance -CopyPath $clausePlusTwoPath -SkillRoot $skillRoot
-  Assert-ErrorCode $clausePlusTwoResult 'clause-length-mismatch' 'a clause cannot grow by two characters through separate segments'
+  Assert-True $clausePlusTwoResult.ok 'clause length is independent of the source sentence'
 
   $plusTwo = Copy-TestObject $valid
   $plusTwo.textReplacements[0].text = "酸香非常浓郁 肉香醇厚`r宅家轻松解锁酸菜米粉"
   $plusTwo.textReplacements[0].lines[0].proposedSegments[1].text = '非常浓郁'
   $plusTwoPath = Write-TestCopy $plusTwo 'plus-two'
   $plusTwoResult = Test-DingdongCopyCompliance -CopyPath $plusTwoPath -SkillRoot $skillRoot
-  Assert-ErrorCode $plusTwoResult 'segment-length-mismatch' 'two-character segment difference fails'
+  Assert-True $plusTwoResult.ok 'segments may differ by more than one character'
 
   $badGrammar = Copy-TestObject $valid
-  $badGrammar.textReplacements[0].text = "酸菜入汤 肉末铺面`r宅家轻松解锁酸菜米粉"
+  $badGrammar.textReplacements[0].text = "酸菜配汤 肉末添香`r宅家轻松解锁酸菜米粉"
   $badGrammar.textReplacements[0].lines[0].proposedSegments[0].text = '酸菜'
   $badGrammar.textReplacements[0].lines[0].proposedSegments[0].role = 'ingredient'
-  $badGrammar.textReplacements[0].lines[0].proposedSegments[1].text = '入汤'
+  $badGrammar.textReplacements[0].lines[0].proposedSegments[1].text = '配汤'
   $badGrammar.textReplacements[0].lines[0].proposedSegments[1].pos = 'verb'
   $badGrammar.textReplacements[0].lines[0].proposedSegments[1].role = 'action'
   $badGrammar.textReplacements[0].lines[0].proposedSegments[2].text = '肉末'
   $badGrammar.textReplacements[0].lines[0].proposedSegments[2].role = 'ingredient'
-  $badGrammar.textReplacements[0].lines[0].proposedSegments[3].text = '铺面'
+  $badGrammar.textReplacements[0].lines[0].proposedSegments[3].text = '添香'
   $badGrammar.textReplacements[0].lines[0].proposedSegments[3].pos = 'verb'
   $badGrammar.textReplacements[0].lines[0].proposedSegments[3].role = 'action'
   $badGrammar.terminologyDecisions = @(
@@ -295,53 +295,10 @@ try {
   )
   $badGrammarPath = Write-TestCopy $badGrammar 'bad-grammar'
   $badGrammarResult = Test-DingdongCopyCompliance -CopyPath $badGrammarPath -SkillRoot $skillRoot
-  Assert-ErrorCode $badGrammarResult 'pos-mismatch' 'noun-verb rewrite fails grammar'
-  Assert-ErrorCode $badGrammarResult 'role-mismatch' 'semantic-role rewrite fails grammar'
-
-  $forgedSourceGrammar = Copy-TestObject $valid
-  $forgedSourceGrammar.textReplacements[0].lines[0].sourceSegments[0].pos = 'verb'
-  $forgedSourceGrammar.textReplacements[0].lines[0].proposedSegments[0].pos = 'verb'
-  $forgedSourceGrammarPath = Write-TestCopy $forgedSourceGrammar 'forged-source-grammar'
-  $forgedSourceGrammarResult = Test-DingdongCopyCompliance -CopyPath $forgedSourceGrammarPath -SkillRoot $skillRoot
-  Assert-ErrorCode $forgedSourceGrammarResult 'source-grammar-baseline-mismatch' 'task cannot redefine template-owned source grammar to make a rewrite pass'
+  # 自然改写不要求新文的词性与语义角色模仿原模板。
+  Assert-True $badGrammarResult.ok 'different parts of speech and semantic roles are allowed'
 
   $block4Layer = $layers['2689']
-  $badBlock4 = [ordered]@{
-    copyVersion = 2
-    templateId = 'dingdong-haoshiguang-detail-2step'
-    facts = @($valid.facts)
-    terminologyDecisions = @()
-    protectedOverrides = @()
-    textReplacements = @(
-      [ordered]@{
-        label = '版4主料'
-        id = 2689
-        path = [string]$block4Layer.path
-        oldText = [string]$block4Layer.text
-        text = '猪肉入料 细制肉末浇头'
-        mode = 'structure-adapted'
-        lines = @(
-          [ordered]@{
-            sourceSegments = @(
-              [ordered]@{ text = '青虾'; pos = 'noun'; role = 'ingredient'; separatorAfter = '' }
-              [ordered]@{ text = '手工'; pos = 'adverb'; role = 'method'; separatorAfter = '' }
-              [ordered]@{ text = '去壳'; pos = 'verb'; role = 'action'; separatorAfter = '' }
-              [ordered]@{ text = '挑线'; pos = 'verb'; role = 'action'; separatorAfter = '' }
-            )
-            proposedSegments = @(
-              [ordered]@{ text = '猪肉入料'; pos = 'noun'; role = 'ingredient'; separatorAfter = ' ' }
-              [ordered]@{ text = '细制肉末浇头'; pos = 'noun'; role = 'product'; separatorAfter = '' }
-            )
-          }
-        )
-        evidenceIds = @('fact-product')
-      }
-    )
-  }
-  $badBlock4Path = Write-TestCopy $badBlock4 'bad-block4'
-  $badBlock4Result = Test-DingdongCopyCompliance -CopyPath $badBlock4Path -SkillRoot $skillRoot
-  Assert-ErrorCode $badBlock4Result 'segment-count-mismatch' '版4 free rewrite fails original sentence structure'
-
   $validBlock4 = [ordered]@{
     copyVersion = 2
     templateId = 'dingdong-haoshiguang-detail-2step'
@@ -538,7 +495,7 @@ try {
   $badLayout.textReplacements[0].lines[0].proposedSegments[1].separatorAfter = ''
   $badLayoutPath = Write-TestCopy $badLayout 'bad-layout'
   $badLayoutResult = Test-DingdongCopyCompliance -CopyPath $badLayoutPath -SkillRoot $skillRoot
-  Assert-ErrorCode $badLayoutResult 'separator-mismatch' 'space and punctuation structure mismatch fails'
+  Assert-True $badLayoutResult.ok 'spacing and punctuation may follow the new sentence'
 
   $missingEvidence = Copy-TestObject $valid
   $missingEvidence.textReplacements[0].evidenceIds = @()
@@ -758,7 +715,7 @@ try {
   $reviewOutput = & (Join-Path $PSScriptRoot 'new-dingdong-copy-review.ps1') -CopyPath $validPath -OutputPath $reviewPath | ConvertFrom-Json
   Assert-True ($reviewOutput.ok -and (Test-Path -LiteralPath $reviewPath)) 'review generator writes a valid review'
   $reviewText = [IO.File]::ReadAllText($reviewPath, (New-Object Text.UTF8Encoding($false)))
-  Assert-True ($reviewText.Contains('原语法') -and $reviewText.Contains('保留不改') -and $reviewText.Contains($validResult.copySha256)) 'review shows grammar, retained copy, and hash'
+  Assert-True ($reviewText.Contains('原版面') -and $reviewText.Contains('保留不改') -and $reviewText.Contains($validResult.copySha256)) 'review shows layout, retained copy, and hash'
   Assert-True ($reviewText.Contains('| 版2 |') -and
     $reviewText.Contains('| 尾版 |') -and
     -not $reviewText.Contains('| 保留：版2/')) 'review merges retained template text into one row per board'

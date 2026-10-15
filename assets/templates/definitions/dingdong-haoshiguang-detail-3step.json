@@ -94,10 +94,8 @@
   "protectedPathPrefixes": ["版2"],
   "legacyCopyTerms": ["虾仁", "青虾", "蒜蓉", "金蒜", "银蒜", "娃娃菜", "粉丝", "海鲜", "蒸"],
   "copyValidation": {
-    "copyVersion": 2,
-    "maxSegmentCharacterDelta": 1
+    "copyVersion": 2
   },
-  "copyGrammarBaselinePath": "assets/templates/grammar/dingdong-haoshiguang-detail-common.json",
   "textAllowedBounds": [
     { "id": 1853, "label": "头版主卖点", "bounds": [0, 0, 750, 1230] },
     { "id": 10, "label": "产品名称", "bounds": [0, 0, 750, 1230] },

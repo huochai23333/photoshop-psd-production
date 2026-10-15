@@ -45,7 +45,8 @@ try {
   Assert-True (($resolvedIds -join ',') -ceq '5990,5991,5999,6001,6002,6004,6007') 'detail resolver selects all seven registered product image layers'
   Assert-True ($resolvedIds -contains 6004 -and $resolvedIds -notcontains 6005) 'screen 6 excludes the decorative overlay and selects the clipped smart object'
 
-  $grammar = Read-Utf8Json (Join-Path $skillRoot ([string]$detailDefinition.copyGrammarBaselinePath))
+  # 原模板分词只用于构造测试样本，不再从生产定义读取语法约束。
+  $grammar = Read-Utf8Json (Join-Path $skillRoot 'assets/templates/grammar/dingdong-haoshiguang-detail-common.json')
   $templateIndex = Read-Utf8Json (Join-Path $skillRoot 'assets\templates\indexes\dingdong-haoshiguang-detail-2step.index.json')
   $layerById = @{}
   foreach ($document in @($templateIndex.documents)) { foreach ($layer in @($document.layers)) { $layerById[[string]$layer.id] = $layer } }

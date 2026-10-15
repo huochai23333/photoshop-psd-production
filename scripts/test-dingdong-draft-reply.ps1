@@ -50,7 +50,7 @@ for ($index = 2; $index -lt $lines.Count; $index++) {
   }
 }
 
-# 返回最小通过凭证，供发送前确认；脚本不代替语法或事实校验。
+# 返回最小通过凭证，供发送前确认；脚本不代替自然度、版面或事实审核。
 [pscustomobject]@{
   ok = $true
   boardCount = $boards.Count

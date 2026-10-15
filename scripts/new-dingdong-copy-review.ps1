@@ -58,7 +58,10 @@ $lines = [Collections.Generic.List[string]]::new()
 [void]$lines.Add("- Copy SHA-256：$($result.copySha256)")
 [void]$lines.Add("- 校验状态：$(if ($result.ok) { '通过' } else { '失败' })")
 [void]$lines.Add('')
-[void]$lines.Add('| 版块 | 原文 | 原语法 | 原字数 | 新文 | 新语法 | 新字数 | 事实依据 | 状态 |')
+# 脚本只核对可机器验证的约束，通顺度和真实版面必须另行审核。
+[void]$lines.Add('- 自然度与卖点关系需人工审核；字数仅供参考，版面需查看实际预览。')
+[void]$lines.Add('')
+[void]$lines.Add('| 版块 | 原文 | 原版面 | 原字数 | 新文 | 写入方式 | 新字数 | 事实依据 | 状态 |')
 [void]$lines.Add('|---|---|---|---|---|---|---|---|---|')
 
 $reviewGroups = [ordered]@{}
@@ -75,12 +78,9 @@ foreach ($boardLabel in @($reviewGroups.Keys)) {
   $itemLabels = @($boardItems | ForEach-Object { [string]$_.label })
   $itemErrors = @($result.errors | Where-Object { $itemLabels -ccontains [string]$_.label })
   $status = if ($itemErrors.Count -eq 0) { '通过' } else { '失败：' + (($itemErrors | ForEach-Object { [string]$_.message }) -join '；') }
-  $sourceGrammar = @($boardItems | ForEach-Object {
-    if ([string]::IsNullOrWhiteSpace([string]$_.sourceGrammar)) { '逐字来源' } else { [string]$_.sourceGrammar }
-  }) -join "`n"
-  $proposedGrammar = @($boardItems | ForEach-Object {
-    if ([string]::IsNullOrWhiteSpace([string]$_.proposedGrammar)) { '逐字写入' } else { [string]$_.proposedGrammar }
-  }) -join "`n"
+  # 审核显示版面信息和写入方式，不再诱导代理拟合原句语法。
+  $sourceLayout = @($boardItems | ForEach-Object { [string]$_.sourceLayout }) -join "`n"
+  $copyMethod = @($boardItems | ForEach-Object { [string]$_.copyMethod }) -join "`n"
   $sourceCounts = @($boardItems | ForEach-Object {
     if ([string]::IsNullOrWhiteSpace([string]$_.sourceCounts)) { Get-DingdongVisibleLength (Normalize-DingdongLineBreaks ([string]$_.oldText)) } else { [string]$_.sourceCounts }
   }) -join "`n"
@@ -91,10 +91,10 @@ foreach ($boardLabel in @($reviewGroups.Keys)) {
   $row = @(
     Format-ReviewCell ([string]$boardLabel)
     Format-ReviewCell (Join-DingdongReviewText -Items $boardItems -PropertyName 'oldText')
-    Format-ReviewCell $sourceGrammar
+    Format-ReviewCell $sourceLayout
     Format-ReviewCell ([string]$sourceCounts)
     Format-ReviewCell (Join-DingdongReviewText -Items $boardItems -PropertyName 'text')
-    Format-ReviewCell $proposedGrammar
+    Format-ReviewCell $copyMethod
     Format-ReviewCell ([string]$proposedCounts)
     Format-ReviewCell $evidence
     Format-ReviewCell $status
