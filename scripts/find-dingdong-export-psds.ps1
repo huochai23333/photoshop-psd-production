@@ -29,7 +29,8 @@ function parseJson(t){if(typeof JSON!='undefined'&&JSON.parse)return JSON.parse(
 function norm(p){return String(p||'').replace(/\\/g,'/').replace(/\/$/,'').toLowerCase();}
 function n(v){try{return Number(v.as('px'));}catch(e){}try{return Number(v.value);}catch(e2){}try{return Number(v);}catch(e3){}return 0;}
 function descriptorNumber(desc,key){var type=desc.getType(key);if(type==DescValueType.UNITDOUBLE)return desc.getUnitDoubleValue(key);if(type==DescValueType.DOUBLETYPE)return desc.getDouble(key);if(type==DescValueType.INTEGERTYPE)return desc.getInteger(key);throw new Error('Unsupported descriptor number type');}
-function artboardRect(doc,layer){doc.activeLayer=layer;var ref=new ActionReference();ref.putEnumerated(charIDToTypeID('Lyr '),charIDToTypeID('Ordn'),charIDToTypeID('Trgt'));var desc=executeActionGet(ref),key=stringIDToTypeID('artboard');if(!desc.hasKey(key))return null;var board=desc.getObjectValue(key),rect=board.getObjectValue(stringIDToTypeID('artboardRect'));return[descriptorNumber(rect,stringIDToTypeID('left')),descriptorNumber(rect,stringIDToTypeID('top')),descriptorNumber(rect,stringIDToTypeID('right')),descriptorNumber(rect,stringIDToTypeID('bottom'))];}
+// 按图层ID只读查询，不能为取画板尺寸选中隐藏组或修改文档状态。
+function artboardRect(doc,layer){var ref=new ActionReference();ref.putIdentifier(charIDToTypeID('Lyr '),layer.id);var desc=executeActionGet(ref),key=stringIDToTypeID('artboard');if(!desc.hasKey(key))return null;var board=desc.getObjectValue(key),rect=board.getObjectValue(stringIDToTypeID('artboardRect'));return[descriptorNumber(rect,stringIDToTypeID('left')),descriptorNumber(rect,stringIDToTypeID('top')),descriptorNumber(rect,stringIDToTypeID('right')),descriptorNumber(rect,stringIDToTypeID('bottom'))];}
 
 var s=parseJson(readUtf8(settingsPath)),rows=[],prior=null,response='';try{if(app.documents.length)prior=app.activeDocument;}catch(noPrior){}
 try{
@@ -45,7 +46,7 @@ try{
       for(var g=0;g<doc.guides.length;g++){if(doc.guides[g].direction==Direction.HORIZONTAL){var coordinate=Math.round(n(doc.guides[g].coordinate));if(coordinate>0&&coordinate<Math.round(n(doc.height)))guides.push(coordinate);}}
       guides.sort(function(a,b){return a-b;});var unique=[];for(var u=0;u<guides.length;u++){if(unique.length==0||guides[u]!=unique[unique.length-1])unique.push(guides[u]);}
       rows.push('{"path":'+q(wanted)+',"saved":'+(doc.saved===true)+',"width":'+Math.round(n(doc.width))+',"height":'+Math.round(n(doc.height))+',"artboardCount":'+boards.length+',"artboards":['+boards.join(',')+'],"horizontalGuides":['+unique.join(',')+']}');
-      if(previousLayer)try{doc.activeLayer=previousLayer;}catch(restoreLayerError){}
+
     }finally{if(opened&&doc)doc.close(SaveOptions.DONOTSAVECHANGES);}
   }
   response='{"ok":true,"documents":['+rows.join(',')+']}';writeUtf8(s.resultPath,response);

@@ -109,8 +109,8 @@ function descriptorNumber(desc, key) {
   throw new Error("Unsupported descriptor number type");
 }
 function artboardRect(doc, layer) {
-  doc.activeLayer = layer;
-  var ref = new ActionReference(); ref.putEnumerated(charIDToTypeID("Lyr "), charIDToTypeID("Ordn"), charIDToTypeID("Trgt"));
+  // 读取尺寸不切换活动图层，避免触碰隐藏画板。
+  var ref = new ActionReference(); ref.putIdentifier(charIDToTypeID("Lyr "), layer.id);
   var desc = executeActionGet(ref), artboardKey = stringIDToTypeID("artboard"); if (!desc.hasKey(artboardKey)) return null;
   var artboard = desc.getObjectValue(artboardKey), rect = artboard.getObjectValue(stringIDToTypeID("artboardRect"));
   return [descriptorNumber(rect, stringIDToTypeID("left")), descriptorNumber(rect, stringIDToTypeID("top")), descriptorNumber(rect, stringIDToTypeID("right")), descriptorNumber(rect, stringIDToTypeID("bottom"))];
