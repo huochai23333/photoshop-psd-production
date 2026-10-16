@@ -1,4 +1,5 @@
 . (Join-Path $PSScriptRoot 'psd-job-common.ps1')
+. (Join-Path $PSScriptRoot 'psd-page-copy.ps1')
 
 function Invoke-PsdJobApply {
   param(
@@ -12,10 +13,12 @@ function Invoke-PsdJobApply {
   Write-Utf8Json -Path $tempJobPath -Value $Job | Out-Null
   $jobJsPath = ConvertTo-JsString ($tempJobPath -replace '\\', '/')
   $resultJsPath = ConvertTo-JsString ($tempResultPath -replace '\\', '/')
+  $pageCopyLibrary = Get-PsdPageCopyJavaScript
 
   $jsx = @"
 var jobPath = $jobJsPath;
 var resultPath = $resultJsPath;
+$pageCopyLibrary
 
 function q(s) {
   return '"' + String(s).replace(/\\/g, '\\\\').replace(/\r/g, '\\r').replace(/\n/g, '\\n').replace(/"/g, '\\"') + '"';
@@ -139,6 +142,8 @@ var doc = opened.doc;
 if (!doc.saved && !opened.openedHere) throw new Error("Working document has unsaved changes before the job starts.");
 app.activeDocument = doc;
 
+// 在首个显隐、文字或图片操作之前核对真实工作副本，防止来源变化或直接调用绕过预检。
+var pageCopyValidation = assertPsdPageCopy(doc, job);
 var textResults = [], visibilityResults = [], protectedResults = [], imageResults = [], warnings = [], openedSources = [];
 var protectedTargets = job.protectedTextTargets || [];
 for (var p = 0; p < protectedTargets.length; p++) {
@@ -245,6 +250,7 @@ for (var s = 0; s < openedSources.length; s++) {
 var warningJson = [];
 for (var w = 0; w < warnings.length; w++) warningJson.push(q(warnings[w]));
 var result = '{"ok":true,"saved":true,"workingPsdPath":' + q(workingPath) +
+  ',"pageCopyValidation":' + pageCopyJson(pageCopyValidation) +
   ',"previewPath":' + q(previewPath) +
   ',"textChangedCount":' + textResults.length +
   ',"visibilityChangedCount":' + visibilityResults.length +

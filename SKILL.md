@@ -33,6 +33,8 @@ description: Inspect, edit, automate, validate, export, commit, and organize Pho
 
 整页选句和审稿时，先分配营销关键词及短语的使用板块：同一词语最多用于两个板块，且这两个板块不能相邻。按页面实际阅读顺序核对，标题和说明合并计入所属板块；具体统计范围见文案规则中的“整页词语复用”。
 
+按 [整页重复检查](references/dingdong-page-copy-check.md) 对照实际 PSD 全部可见文字，包括未修改和受保护文字。程序在创建工作副本前、实际图层修改前和正式提交前检查完整长句重复；发现重复先处理允许修改的候选，再继续写入，不自动改动保护目标或已确认稿。不确定参考句或卖点能否使用时，使用 Codex 提问弹窗列出具体候选和存疑点，收到答复后继续；不把默认选项当成答复。
+
 ## 两步生产
 
 先阅读 [job-workflow.md](references/job-workflow.md)。

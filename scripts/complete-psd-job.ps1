@@ -31,6 +31,10 @@ if ($targetExistsNow -and (Get-Sha256 $run.targetPsdPath) -cne [string]$run.targ
   throw 'Target PSD changed after preparation.'
 }
 
+# 提交前再次检查已保存工作副本；已有运行记录也不能带着重复文案覆盖正式文件。
+$pageCopyValidation = Assert-PsdPageCopy -DocumentPath $run.workingPsdPath -Job ([pscustomobject]@{ workflow = $run.workflow })
+$run | Add-Member -NotePropertyName pageCopyValidation -NotePropertyValue $pageCopyValidation -Force
+
 $targetDirectory = Split-Path -Parent $run.targetPsdPath
 if ($targetDirectory) { New-Item -ItemType Directory -Force -Path $targetDirectory | Out-Null }
 $extension = [IO.Path]::GetExtension([string]$run.targetPsdPath)

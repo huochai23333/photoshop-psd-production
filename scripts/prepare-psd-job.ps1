@@ -69,6 +69,9 @@ foreach ($sourceImagePsd in @($job.imageTransfers | Where-Object { Test-ObjectPr
   }
 }
 
+# 从来源 PSD 读取整页，合并计划新文与显隐状态；失败时尚未创建工作副本或写入任何文字。
+$pageCopyValidation = Assert-PsdPageCopy -DocumentPath $job.sourcePsdPath -Job $job
+
 $targetExisted = Test-Path -LiteralPath $job.targetPsdPath -PathType Leaf
 $targetHashBefore = if ($targetExisted) { Get-Sha256 $job.targetPsdPath } else { $null }
 $workingDirectory = Split-Path -Parent $job.workingPsdPath
@@ -122,6 +125,7 @@ try {
     imageTransfers = @($job.imageTransfers)
     catalog = $job.catalog
     preparedResult = $prepared
+    pageCopyValidation = $pageCopyValidation
     reopenValidation = $null
     finalPsdSha256 = $null
     outputs = @()

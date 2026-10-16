@@ -27,6 +27,9 @@ try {
     )) {
     & (Join-Path $isolatedSkill "scripts/$name")
   }
+  # 整页算法用实际索引和显隐计划回归，不启动 Photoshop；真实入口另有可选烟测。
+  & node (Join-Path $isolatedSkill 'scripts/test-dingdong-page-copy.tests.js')
+  if ($LASTEXITCODE -ne 0) { throw '整页文案重复回归失败。' }
   'PASS: isolated copy suite completed; Photoshop rendering remains untested'
 } finally {
   # 删除前核对绝对路径与本脚本创建的唯一前缀，防止清理到用户资源。
