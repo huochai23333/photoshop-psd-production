@@ -6,12 +6,17 @@ param(
   [ValidateRange(1, 102400)][int]$TargetKb = 600,
   [string]$ArchiveName,
   [string]$UncompressedOutputDirectory,
+  [string[]]$ExcludedMainArtboards = @(),
+  [string]$UserMainExclusionInstruction,
   [switch]$OverwriteArchive
 )
 
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'psd-job-common.ps1')
 . (Join-Path $PSScriptRoot 'dingdong-export-destination.ps1')
+. (Join-Path $PSScriptRoot 'dingdong-delivery-requirements.ps1')
+# 画板0必交；非0画板仅接受本次用户明确排除，不能从显隐或旧运行清单推导。
+$requiredMainArtboards = @(Get-DingdongRequiredMainArtboards -ExcludedMainArtboards $ExcludedMainArtboards -UserMainExclusionInstruction $UserMainExclusionInstruction)
 
 # 先检查落盘目录；错误位置不得进入 Photoshop、压缩或文件创建步骤。
 $destinationPolicy = Resolve-DingdongExportDestination -ProductDirectory $ProductDirectory `
@@ -129,7 +134,7 @@ try {
     -SourcePsdPath ([string]$pair.mainPsdPath) `
     -OutputDirectory $mainOutput `
     -Format jpg `
-    -ArtboardNames @('0', '1', '2', '3', '4', '5', '6', '7') `
+    -ArtboardNames $requiredMainArtboards `
     -Quality 10 `
     -Overwrite | ConvertFrom-Json
 
@@ -151,6 +156,8 @@ try {
     if ((Get-Sha256 $destination) -cne (Get-Sha256 $image.FullName)) { throw "Used image copy hash mismatch: $($image.FullName)" }
   }
 
+  # 验收模块从完整交付规则及源 PSD 凭证计算要求，不接收 mainExport/pages 等执行清单。
+  $stagingAcceptance = Assert-DingdongDeliveryRequirements -DeliveryDirectory $stagingFullPath -SourceFacts $pair -ExcludedMainArtboards $ExcludedMainArtboards -UserMainExclusionInstruction $UserMainExclusionInstruction
   New-Item -ItemType Directory -Path $uncompressedOutputRoot | Out-Null
   Copy-Item -LiteralPath $detailOutput, $mainOutput, $usedOutput -Destination $uncompressedOutputRoot -Recurse
   $uncompressedFiles = @(Get-ChildItem -LiteralPath $uncompressedOutputRoot -Recurse -File | Sort-Object FullName)
@@ -190,6 +197,8 @@ try {
     }
   }
 
+  $uncompressedAcceptance = Assert-DingdongDeliveryRequirements -DeliveryDirectory $uncompressedOutputRoot -SourceFacts $pair -ExcludedMainArtboards $ExcludedMainArtboards -UserMainExclusionInstruction $UserMainExclusionInstruction
+  $archiveAcceptance = Assert-DingdongArchiveDeliveryRequirements -ArchivePath $archivePath -SourceFacts $pair -ExcludedMainArtboards $ExcludedMainArtboards -UserMainExclusionInstruction $UserMainExclusionInstruction
   Assert-DingdongArchiveDestination -DestinationPolicy $destinationPolicy -ExpectedArchivePath $archivePath -Package $package
   [pscustomobject][ordered]@{
     ok = $true
@@ -212,7 +221,10 @@ try {
     detailSliceCount = [int]$detailExport.sliceCount
     mainPsdPath = [string]$pair.mainPsdPath
     mainPsdSha256 = $mainHashBefore
-    mainArtboards = @('0', '1', '2', '3', '4', '5', '6', '7')
+    mainArtboards = $requiredMainArtboards
+    excludedMainArtboards = @($ExcludedMainArtboards)
+    userMainExclusionInstruction = $UserMainExclusionInstruction
+    deliveryAcceptance = [ordered]@{ staging=$stagingAcceptance; uncompressed=$uncompressedAcceptance; archive=$archiveAcceptance }
     mainAttachmentCount = $mainAttachments.Count
     mainAttachments = @($mainAttachments)
     usedImageCount = $usedImages.Count

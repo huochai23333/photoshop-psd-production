@@ -13,7 +13,8 @@ $scriptPaths = @(
   'scripts\export-psd-slices.ps1',
   'scripts\find-dingdong-export-psds.ps1',
   'scripts\compress-image-package.ps1',
-  'scripts\export-dingdong-image-package.ps1'
+  'scripts\export-dingdong-image-package.ps1',
+  'scripts\dingdong-delivery-requirements.ps1'
 )
 foreach ($relativePath in $scriptPaths) {
   $path = Join-Path $skillRoot $relativePath
@@ -40,8 +41,8 @@ Assert-True (-not $sliceScriptText.Contains('assets\templates') -and -not $disco
 Assert-True ($skillText.Contains('整包导出主图必须按名称顺序导出画板 0–7，不排除画板 0') -and
   $advancedText.Contains('画板 `0` 必须包含在整包导出中') -and
   $dingdongText.Contains('画板 0 不得排除') -and
-  $packageScriptText.Contains("-ArtboardNames @('0', '1', '2', '3', '4', '5', '6', '7')") -and
-  $packageScriptText.Contains("mainArtboards = @('0', '1', '2', '3', '4', '5', '6', '7')") -and
+  $packageScriptText.Contains('Get-DingdongRequiredMainArtboards') -and
+  $packageScriptText.Contains('Assert-DingdongArchiveDeliveryRequirements') -and
   $discoveryScriptText.Contains("mainArtboardNames = @('0', '1', '2', '3', '4', '5', '6', '7')")) 'whole-package export includes main artboard 0 through 7 in order'
 Assert-True ($skillText.Contains('详情页固定同时导出完整长图和切片') -and
   $advancedText.Contains('`详情页长图.jpg`') -and

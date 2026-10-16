@@ -88,6 +88,7 @@ try {
     detailCanvas = [pscustomobject]@{ width = [int]$detailCandidates[0].width; height = [int]$detailCandidates[0].height }
     mainPsdPath = [IO.Path]::GetFullPath([string]$mainCandidates[0].path)
     mainArtboardNames = @('0', '1', '2', '3', '4', '5', '6', '7')
+    mainArtboards = @($mainCandidates[0].artboards)
   } | ConvertTo-Json -Depth 8 -Compress
 } finally {
   Remove-Item -LiteralPath $settingsPath, $resultPath -Force -ErrorAction SilentlyContinue
