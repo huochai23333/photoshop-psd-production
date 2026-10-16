@@ -31,6 +31,8 @@ description: Inspect, edit, automate, validate, export, commit, and organize Pho
 
 拟写或修改详情页文案时，先读 [自然表达与版面适配](references/dingdong-copy-grammar.md) 和 [文案参考句库](references/dingdong-copy-examples.md)。按“商品事实 → 板块信息重点 → 自然完整表达 → 精简适配版面 → 自然度与事实审核”出稿。原模板只提供位置、行数和容量参考；保持既有保护范围、固定文字、字号、逐字步骤和确认流程。
 
+步骤版对应的便利标题：火锅类使用甲方指定的“开盒即涮 轻松到胃”；非火锅类使用所选模板该位置的默认文案。按当前商品资料和已确认吃法判断类别，默认原文从当前模板索引读取；步骤数字同步、保护范围和版式规则照常执行。
+
 ## 两步生产
 
 先阅读 [job-workflow.md](references/job-workflow.md)。
