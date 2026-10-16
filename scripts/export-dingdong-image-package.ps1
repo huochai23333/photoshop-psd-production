@@ -1,7 +1,8 @@
 param(
   [Parameter(Mandatory = $true)][string]$ProductDirectory,
-  [string]$DestinationRoot = 'D:\谷鱼视觉\小梅园',
-  [string]$CompressorPath = 'D:\谷鱼视觉\小梅园\images\image-compressor.exe',
+  [string]$DestinationRoot,
+  [string]$UserDestinationInstruction,
+  [string]$CompressorPath,
   [ValidateRange(1, 102400)][int]$TargetKb = 600,
   [string]$ArchiveName,
   [string]$UncompressedOutputDirectory,
@@ -10,11 +11,16 @@ param(
 
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'psd-job-common.ps1')
+. (Join-Path $PSScriptRoot 'dingdong-export-destination.ps1')
 
-$productRoot = [IO.Path]::GetFullPath((Resolve-Path -LiteralPath $ProductDirectory).Path).TrimEnd('\')
-$destinationFullRoot = [IO.Path]::GetFullPath($DestinationRoot).TrimEnd('\')
-if (-not (Test-Path -LiteralPath $destinationFullRoot -PathType Container)) {
-  throw "Archive destination root is missing: $destinationFullRoot"
+# 先检查落盘目录；错误位置不得进入 Photoshop、压缩或文件创建步骤。
+$destinationPolicy = Resolve-DingdongExportDestination -ProductDirectory $ProductDirectory `
+  -DestinationRoot $DestinationRoot -UserDestinationInstruction $UserDestinationInstruction
+$productRoot = $destinationPolicy.productDirectory
+$destinationFullRoot = $destinationPolicy.destinationRoot
+if ([string]::IsNullOrWhiteSpace($CompressorPath)) {
+  # 工具随商品实际盘符定位；用户另选归档位置不会改变压缩器的来源。
+  $CompressorPath = Join-Path ([IO.Directory]::GetParent($productRoot).FullName) 'images\image-compressor.exe'
 }
 $usedRoot = Join-Path $productRoot '已使用'
 if (-not (Test-Path -LiteralPath $usedRoot -PathType Container)) {
@@ -184,10 +190,15 @@ try {
     }
   }
 
+  Assert-DingdongArchiveDestination -DestinationPolicy $destinationPolicy -ExpectedArchivePath $archivePath -Package $package
   [pscustomobject][ordered]@{
     ok = $true
     workflow = 'dingdong-export-image-package'
     productDirectory = $productRoot
+    archiveDestinationRoot = $destinationFullRoot
+    archiveDestinationRule = $destinationPolicy.rule
+    userDestinationInstruction = $destinationPolicy.userDestinationInstruction
+    archiveDestinationVerified = $true
     uncompressedOutputDirectory = $uncompressedOutputRoot
     uncompressedFileCount = $uncompressedFiles.Count
     discoveryRule = [string]$pair.discoveryRule
